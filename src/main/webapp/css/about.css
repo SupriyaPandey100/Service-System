@@ -1,0 +1,395 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   about.css  -  ServiceHub About Page Styles
+   Depends on: userdashboard.css  (CSS variables + base layout)
+               shared.css         (navbar, footer)
+   ========================================================================== */
+
+
+/* --------------------------------------------------
+   PAGE BODY
+   White background overrides the dashboard grey
+   that comes from userdashboard.css
+-------------------------------------------------- */
+body {
+    background-color: #ffffff;
+}
+
+
+/* --------------------------------------------------
+   HERO BANNER
+   Full-width image banner at the top of the page.
+
+   HOW THE IMAGE WORKS:
+   The background-image points to: ../images/Aboutpage.jpg
+   "../" goes one folder up from css/ which lands in webapp/
+   So the full resolved path is:  src/main/webapp/images/Aboutpage.jpg
+   Make sure you place your image there with that exact filename.
+
+   The background-color (#5D558A purple) acts as a fallback
+   if the image file is missing or still loading.
+-------------------------------------------------- */
+.about-hero-banner {
+    width: 100%;
+    height: 380px;
+    background-image: url("../images/Aboutpage.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #5D558A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+/* --------------------------------------------------
+   HERO OVERLAY
+   Dark transparent layer on top of the image so the
+   white text stays readable regardless of the photo
+-------------------------------------------------- */
+.about-hero-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 24, 60, 0.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff;
+}
+
+
+/* --------------------------------------------------
+   HERO ICON CIRCLE
+-------------------------------------------------- */
+.about-hero-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    color: #ffffff;
+    margin-bottom: 18px;
+}
+
+
+/* --------------------------------------------------
+   HERO TEXT
+-------------------------------------------------- */
+.about-hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+}
+
+.about-hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0;
+    max-width: 560px;
+}
+
+
+/* --------------------------------------------------
+   COOKIE MESSAGE BADGE
+   Small pill shown below the hero subtitle.
+   Comes from the lastAboutVisit cookie in AboutServlet.
+-------------------------------------------------- */
+.about-cookie-msg {
+    margin-top: 20px;
+    padding: 9px 22px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    font-size: 0.88rem;
+    color: #ffffff;
+    display: inline-block;
+}
+
+.about-cookie-msg .far {
+    margin-right: 5px;
+}
+
+
+/* --------------------------------------------------
+   MISSION SECTION
+   Wrapper that centres the white card below the banner
+-------------------------------------------------- */
+.about-mission-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 5%;
+    position: relative;
+    z-index: 10;
+}
+
+
+/* --------------------------------------------------
+   MISSION CARD
+   Floats upward to overlap the bottom of the hero banner
+   using a negative margin-top value
+-------------------------------------------------- */
+.about-mission-card {
+    background: #ffffff;
+    border: 1px solid #f3f4f6;
+    border-radius: 16px;
+    padding: 48px 52px;
+    margin-top: -60px;
+    text-align: center;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+}
+
+.about-section-heading {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #5D558A;
+    margin: 0 0 22px 0;
+}
+
+.about-mission-text {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.85;
+    margin-bottom: 18px;
+}
+
+.about-mission-text:last-child {
+    margin-bottom: 0;
+}
+
+
+/* --------------------------------------------------
+   STATS ROW
+   Four number cards in a horizontal row.
+   Numbers come from AboutServlet request attributes.
+-------------------------------------------------- */
+.about-stats-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 5% 20px;
+}
+
+.about-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.about-stat-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 28px 16px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.about-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.about-stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #5D558A;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.about-stat-star {
+    font-size: 1.3rem;
+    color: #FACC15;
+}
+
+.about-stat-label {
+    font-size: 0.88rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+
+/* --------------------------------------------------
+   JOIN BANNER SECTION
+   Purple CTA block encouraging users to browse services
+-------------------------------------------------- */
+.about-join-section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px 5% 20px;
+}
+
+.about-join-box {
+    background-color: #5D558A;
+    color: #ffffff;
+    border-radius: 14px;
+    padding: 52px 40px;
+    text-align: center;
+    box-shadow: 0 10px 28px rgba(93, 85, 138, 0.2);
+}
+
+.about-join-heading {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+}
+
+.about-join-sub {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 28px;
+}
+
+/* Browse Services button - blue to match the Book button on services page */
+.about-browse-btn {
+    display: inline-block;
+    background: #155DFC;
+    color: #ffffff;
+    padding: 13px 36px;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.about-browse-btn:hover {
+    background: #0d4bc7;
+    transform: translateY(-2px);
+}
+
+
+/* --------------------------------------------------
+   CORE VALUES SECTION
+-------------------------------------------------- */
+.about-values-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 60px 5% 80px;
+    text-align: center;
+}
+
+.about-values-heading {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 40px;
+}
+
+/* 2 columns, wraps on smaller screens */
+.about-values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+
+/* --------------------------------------------------
+   VALUE CARDS
+-------------------------------------------------- */
+.about-value-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 34px 30px;
+    text-align: left;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.about-value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+    border-color: #d1d5db;
+}
+
+
+/* Small icon box inside each value card */
+.about-value-icon {
+    width: 50px;
+    height: 50px;
+    background: #f3f1fb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #5D558A;
+    margin-bottom: 16px;
+}
+
+.about-value-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 10px 0;
+}
+
+.about-value-text {
+    font-size: 0.92rem;
+    color: #6b7280;
+    line-height: 1.65;
+    margin: 0;
+}
+
+
+/* --------------------------------------------------
+   RESPONSIVE ADJUSTMENTS
+-------------------------------------------------- */
+@media (max-width: 900px) {
+    .about-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero-title {
+        font-size: 2.1rem;
+    }
+
+    .about-mission-card {
+        padding: 36px 24px;
+        margin-top: -40px;
+    }
+
+    .about-values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-join-box {
+        padding: 40px 24px;
+    }
+
+    .about-join-heading {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-hero-banner {
+        height: 320px;
+    }
+}
