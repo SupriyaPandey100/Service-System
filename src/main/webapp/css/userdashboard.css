@@ -1,0 +1,257 @@
+/* ==============================
+   CSS for ServiceHub Dashboard
+   Filename: userdashboard.css
+   ============================== */
+
+:root {
+    --primary-color: #6C5DD3;        
+    --primary-hover: #594bb8;       
+    --secondary-bg: #F3F1FB;        
+    --bg-color: #F7F7FA;            
+    --card-bg: #FFFFFF;             
+    --border-color: #E6E8EC;        
+    --text-main: #11142D;           
+    --text-sub: #808191;            
+    --theme-bg-color: #5D5482; /* Matching header/footer purple */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* FULL SCREEN VERTICAL FIX */
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; transition: color 0.3s; }
+ul { list-style: none; }
+
+/* FULL SCREEN HORIZONTAL FIX (Fluid Layout) */
+.container { 
+    width: 95%; 
+    max-width: 1600px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+
+/* Interactive Hover Effects */
+.card, .btn, .service-category { transition: all 0.3s ease-in-out; }
+.card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+.btn {
+    display: inline-block; padding: 10px 24px; border-radius: 12px;
+    font-weight: 600; font-size: 14px; cursor: pointer; border: none; text-align: center;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(108, 93, 211, 0.3); }
+.btn-primary { background-color: var(--primary-color); color: #FFFFFF; }
+.btn-primary:hover { background-color: var(--primary-hover); }
+.btn-outline { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); }
+.btn-outline:hover { background-color: var(--secondary-bg); }
+
+.section-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: var(--text-main); }
+.card { background-color: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); padding: 24px; }
+
+/* Header */
+header { 
+    background-color: var(--theme-bg-color); 
+    color: #FFFFFF; 
+    border-bottom: none; 
+    padding: 16px 0; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+}
+
+header .container { display: flex; align-items: center; justify-content: space-between; }
+.logo-group { display: flex; align-items: center; gap: 8px; }
+.logo-icon { color: #FFFFFF; font-size: 24px; }
+.brand-name { font-size: 20px; font-weight: 800; color: #FFFFFF; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { font-size: 14px; font-weight: 600; color: #FFFFFF; }
+.nav-links a:hover, .nav-links a.active { color: #FFD700; }
+.header-tools { display: flex; align-items: center; gap: 20px; }
+
+/* Search Bars */
+.search-container { position: relative; }
+.search-bar-small { position: relative; display: flex; width: 250px; }
+.search-bar-small input { width: 100%; padding: 10px 40px 10px 16px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #FFFFFF; font-family: inherit; }
+.search-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-sub); cursor: pointer; }
+
+.search-bar-large { position: relative; width: 100%; }
+.search-bar-large input { width: 100%; padding: 16px 120px 16px 20px; border-radius: 12px; border: 1px solid var(--border-color); background-color: var(--card-bg); font-size: 14px; font-family: inherit; }
+.search-bar-large .btn-search { position: absolute; right: 6px; top: 6px; bottom: 6px; }
+
+/* ==============================
+   Profile Dropdown (Pure CSS Hover)
+   ============================== */
+.user-dropdown { display: flex; align-items: center; gap: 12px; cursor: pointer; position: relative; padding-bottom: 10px; margin-bottom: -10px; }
+.user-avatar { width: 40px; height: 40px; border-radius: 50%; background-color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #FFFFFF; }
+.user-name { font-size: 14px; font-weight: 600; color: #FFFFFF; }
+
+.dropdown-menu { display: none; position: absolute; top: 100%; right: 0; background-color: white; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid var(--border-color); z-index: 1001; overflow: hidden; }
+
+/* Trigger display on hover */
+.user-dropdown:hover .dropdown-menu { display: block; animation: fadeIn 0.2s ease-out; }
+
+.dropdown-menu a { color: var(--text-main); padding: 12px 16px; text-decoration: none; display: block; font-size: 14px; font-weight: 500; transition: all 0.2s;}
+.dropdown-menu a i { margin-right: 8px; width: 16px; color: var(--primary-color); }
+.dropdown-menu a:hover { background-color: var(--secondary-bg); color: var(--primary-color); }
+.text-danger { color: #EB5757 !important; }
+.text-danger i { color: #EB5757 !important; }
+
+/* Dashboard Layout */
+main.dashboard { 
+    flex: 1; 
+    padding: 40px 0; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 32px; 
+}
+
+.welcome-banner { background-color: var(--secondary-bg); border-radius: 20px; padding: 40px; display: flex; align-items: center; justify-content: space-between; }
+.welcome-text h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+.welcome-text p { color: var(--text-sub); font-size: 14px; }
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.stat-card { display: flex; align-items: center; gap: 16px; }
+.stat-icon { width: 48px; height: 48px; border-radius: 12px; background-color: var(--secondary-bg); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.stat-info .stat-label { font-size: 12px; color: var(--text-sub); font-weight: 600; display: block; }
+.stat-info .stat-value { font-size: 24px; font-weight: 800; line-height: 1.2; }
+.view-link { font-size: 12px; color: var(--primary-color); font-weight: 600; margin-top: 4px; display: inline-block; }
+
+/* Grid Layout */
+.dashboard-content { display: grid; grid-template-columns: 2.5fr 1fr; gap: 40px; align-items: start; }
+.service-finder-section { display: flex; flex-direction: column; gap: 24px; }
+
+/* Service Categories */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+.service-category { text-align: center; cursor: pointer; padding: 24px 16px; border-radius: 12px; border: 1px solid var(--border-color); background-color: var(--card-bg); display: flex; flex-direction: column; align-items: center; }
+.service-category:hover { border-color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(108, 93, 211, 0.1); }
+.service-category-icon { font-size: 32px; margin-bottom: 12px; color: var(--primary-color); transition: transform 0.3s ease; }
+.service-category:hover .service-category-icon { transform: scale(1.1); }
+.service-category-name { font-size: 14px; font-weight: 600; }
+
+/* Sidebar Support Card */
+.dashboard-sidebar { display: flex; flex-direction: column; gap: 32px; }
+.help-card { background-color: var(--primary-color); color: #FFFFFF; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 40px 24px; }
+.help-card .help-icon-large { color: white; font-size: 56px; }
+.help-card .btn-outline { background-color: #FFFFFF; border: none; color: var(--text-main); width: 100%; font-size: 16px; }
+.help-card .btn-outline:hover { background-color: var(--secondary-bg); color: var(--primary-color); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==============================
+   Footer Styles
+   ============================== */
+.footer {
+    background-color: var(--theme-bg-color);
+    color: #FFFFFF;
+    padding: 60px 0 20px;
+    margin-top: 40px; 
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer h3 { font-size: 20px; margin-bottom: 16px; color: #FFFFFF; display: flex; align-items: center; gap: 10px; }
+.footer h4 { font-size: 16px; margin-bottom: 20px; color: #FFFFFF; }
+.footer p { color: rgba(255, 255, 255, 0.8); margin-bottom: 12px; font-size: 14px; line-height: 1.6; }
+
+.footer-links { display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { color: rgba(255, 255, 255, 0.8); font-size: 14px; transition: color 0.3s; }
+.footer-links a:hover { color: #FFD700; }
+
+.footer-contact p { display: flex; align-items: center; gap: 10px; color: rgba(255, 255, 255, 0.8); }
+.footer-contact i { color: #FFFFFF; width: 16px; }
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+/* ==============================
+   Notification Dropdown Menu (Pure CSS Hover)
+   ============================== */
+.notification-bell { position: relative; font-size: 20px; color: #FFFFFF; cursor: pointer; }
+.notification-count { position: absolute; top: -6px; right: -6px; background-color: #EB5757; color: #FFFFFF; font-size: 10px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* Added padding to bridge the gap so the menu doesn't close when moving the mouse down */
+.notification-wrapper { position: relative; display: flex; align-items: center; padding-bottom: 15px; margin-bottom: -15px;}
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: -10px; 
+    width: 340px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    border: 1px solid var(--border-color);
+    z-index: 1002;
+    cursor: default;
+}
+
+/* Trigger display on hover */
+.notification-wrapper:hover .notification-dropdown { display: block; animation: fadeIn 0.2s ease-out; }
+
+.notification-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 16px;
+    width: 12px;
+    height: 12px;
+    background: #FFFFFF;
+    transform: rotate(45deg);
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dropdown-header h3 { font-size: 14px; color: var(--text-main); margin: 0; font-weight: 700; }
+.dropdown-header a { font-size: 12px; color: var(--primary-color); font-weight: 600; text-decoration: none; }
+.dropdown-header a:hover { text-decoration: underline; }
+
+.dropdown-body {
+    max-height: 350px; 
+    overflow-y: auto;
+    padding: 0;
+}
+
+.notification-item {
+    display: flex; gap: 12px; padding: 16px; border-bottom: 1px solid var(--border-color); transition: background 0.2s;
+}
+.notification-item:hover { background-color: var(--secondary-bg); }
+.notification-item:last-child { border-bottom: none; }
+
+.notification-icon-small {
+    width: 36px; height: 36px; border-radius: 8px; background-color: var(--secondary-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px;
+}
+
+.notification-content { flex: 1; }
+.notification-content p { font-size: 13px; margin: 0; color: var(--text-main); font-weight: 500; line-height: 1.4; }
+.notification-content .time { font-size: 11px; color: var(--text-sub); display: block; margin-top: 4px; }

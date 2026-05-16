@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+/* Centering container */
+.auth-container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa; /* Matches Figma's light gray background */
+}
+
+.auth-card {
+    background: #ffffff;
+    padding: 60px 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Matches that soft Figma shadow */
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.auth-card h2 {
+    color: #000000;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.auth-card p {
+    color: #4b5563;
+    margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 1.1rem;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 15px 14px 45px; /* Spacing for icons */
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-wrapper input:focus {
+    border-color: #155DFC;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(21, 93, 252, 0.1);
+}
+
+/* The Sign In Button */
+/* =========================================
+   FIGMA BLUE BUTTON (FINAL FIX)
+   ========================================= */
+.btn-submit {
+    /* Layout */
+    width: 100%;
+    padding: 16px;
+    margin-top: 15px;
+    
+    /* Colors & Styling */
+    background-color: #155DFC; /* Precise Figma Blue */
+    color: #ffffff;           /* White text */
+    border: none;             /* REMOVES THE GREY BORDER */
+    border-radius: 10px;      /* Rounded corners */
+    
+    /* Text Styling */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;         /* Bold text */
+    text-align: center;
+    
+    /* Interaction */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;           /* Ensures it takes full width */
+}
+
+/* Hover effect for a professional feel */
+.btn-submit:hover {
+    background-color: #0d4bc7; /* Slightly darker blue */
+    box-shadow: 0 4px 12px rgba(21, 93, 252, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Active effect when clicked */
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.error-msg {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #fee2e2;
+}
+
+.auth-footer-text {
+    margin-top: 40px;
+    font-size: 1rem;
+    color: #4b5563;
+}
+
+.auth-footer-text a {
+    color: #155DFC;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-footer-text a:hover {
+    text-decoration: underline;
+}
