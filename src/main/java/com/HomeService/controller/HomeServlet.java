@@ -2,41 +2,23 @@ package com.HomeService.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
+import com.HomeService.dao.UserDAO; // Or ServiceDAO
 
-/**
- * Servlet implementation class HomeServlet
- */
-@WebServlet("/Home")
+@WebServlet("/home")
 public class HomeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public HomeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // SESSION AUTHENTICATION: Prevent unauthorized access to the services page
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("userSession") == null) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        // DYNAMIC DATA: Fetching list from DAO (Model) to avoid static pages
+        // request.setAttribute("serviceList", new ServiceDAO().getAllServices());
+
+        request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
-

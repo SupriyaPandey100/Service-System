@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<!-- FIXED JSTL URI FOR TOMCAT 10 -->
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,94 +10,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/shared.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userdashboard.css?v=5.0">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/services.css">
 </head>
-
 <body>
-    <nav class="navbar">
-        <div class="logo"><i class="fas fa-wrench"></i> ServiceHub</div>
-        <div class="nav-links">
-            <a href="${pageContext.request.contextPath}/index">Home</a>
-            <a href="${pageContext.request.contextPath}/services">Services</a>
-            <a href="#">About</a>
-            
-        </div>
-        <div class="auth-links" style="display: flex; align-items: center; gap: 20px;">
-            <c:choose>
-                <c:when test="${not empty userSession}">
-                    <a href="${pageContext.request.contextPath}/dashboard" style="color: white; text-decoration: none;">Dashboard</a>
-                    <span style="color: white;"><i class="far fa-user"></i> ${userSession.fullName}</span>
-                    <a href="${pageContext.request.contextPath}/logout" class="nav-btn" style="text-decoration: none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="${pageContext.request.contextPath}/login" style="color: white; text-decoration: none;">Login</a>
-                    <a href="${pageContext.request.contextPath}/register" class="nav-btn" style="text-decoration: none;">Register</a>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </nav>
 
-    <div class="services-header">
-        <h1>Our Services</h1>
-        <p>Browse through our wide range of professional home services</p>
-        <div class="search-bar">
-            <i class="fas fa-search" style="position: absolute; margin: 15px 0 0 15px; color: #888;"></i>
-            <input type="text" placeholder="Search for services..." style="padding-left: 45px;">
-        </div>
+    <%@ include file="header_guest.jsp" %>
+
+    <div class="catalog-header" style="padding-top: 40px; text-align: center;">
+        <h1 style="font-size: 32px; color: var(--text-main); margin-bottom: 8px;">Our Services</h1>
+        <p style="color: var(--text-sub); margin-bottom: 24px;">Browse through our wide range of professional home services</p>
+        
+        <form action="${pageContext.request.contextPath}/services" method="GET" class="search-container" style="margin-bottom: 24px; display: inline-block; width: 100%;">
+            <input type="text" name="search" placeholder="Search for services..." style="padding: 12px 20px; width: 100%; max-width: 500px; border-radius: 8px; border: 1px solid var(--border-color); font-family: inherit;">
+        </form>
     </div>
 
-    <div class="filter-tabs">
-        <button class="active">All</button>
-        <button>Plumbing</button>
-        <button>Electrical</button>
-        <button>Painting</button>
-        <button>Cleaning</button>
-        <button>AC Repair</button>
-        <button>Carpentry</button>
+    <div class="filter-tabs" style="display: flex; gap: 12px; margin-bottom: 32px; justify-content: center; flex-wrap: wrap;">
+        <a href="?category=all" class="btn btn-outline active" style="background: var(--primary-color); color: white;">All</a>
+        <a href="?category=Plumbing" class="btn btn-outline">Plumbing</a>
+        <a href="?category=Electrical" class="btn btn-outline">Electrical</a>
+        <a href="?category=Painting" class="btn btn-outline">Painting</a>
+        <a href="?category=Cleaning" class="btn btn-outline">Cleaning</a>
+        <a href="?category=AC" class="btn btn-outline">AC Repair</a>
+        <a href="?category=Carpentry" class="btn btn-outline">Carpentry</a>
     </div>
 
-    <div class="services-grid">
-        <div class="service-card">
-            <!-- Replaced broken img with Unsplash link from your other file -->
-            <div class="service-img" style="height: 180px; background: url('https://images.unsplash.com/photo-1585704032915-c3400ca199e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover;"></div>
-            <div class="service-info">
-                <span class="category">Plumbing</span>
-                <h3>Plumbing Repair</h3>
-                <p>Professional plumbing repair services for leaks, clogs, and pipe issues</p>
-                <div class="service-meta">
-                    <span style="color: #d4af37;"><i class="fas fa-star"></i> 4.8 (158)</span>
-                    <span><i class="far fa-clock"></i> 2 hours</span>
-                </div>
-                <div class="service-footer">
-                    <div>
-                        <span style="font-size: 11px; color: #888; display: block;">Starting at</span>
-                        <span class="price">NPR 1500</span>
+    <div class="container">
+        <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding-bottom: 60px;">
+            <c:forEach var="service" items="${serviceList}">
+                <div class="service-card" style="background: white; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <div class="service-img" style="height: 200px; background: url('${service.imageUrl}') center/cover;"></div>
+                    <div class="card-content" style="padding: 20px;">
+                        <span class="card-tag" style="background: var(--secondary-bg); color: var(--primary-color); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">${service.category}</span>
+                        <h3 style="margin: 12px 0; font-size: 18px; color: var(--text-main); font-weight: 800;">${service.name}</h3>
+                        <p style="color: var(--text-sub); font-size: 14px; margin-bottom: 16px; line-height: 1.5;">${service.description}</p>
+                        
+                        <div class="card-meta" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 13px;">
+                            <span style="color: #FACC15;"><i class="fas fa-star"></i> 4.8 (158)</span>
+                            <span style="color: var(--text-sub);"><i class="far fa-clock"></i> 2 hours</span>
+                        </div>
+                        
+                        <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 16px;">
+                            <div>
+                                <span style="font-size: 11px; color: var(--text-sub); display: block;">Starting at</span>
+                                <span style="font-weight: 700; color: var(--primary-color); font-size: 16px;">NPR ${service.price}</span>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/login" class="btn btn-primary" style="padding: 8px 16px; font-size: 13px; text-decoration: none;">Login to Book</a>
+                        </div>
                     </div>
-                    <button class="book-btn">Book <i class="fas fa-arrow-right"></i></button>
                 </div>
-            </div>
-        </div>
-
-        <div class="service-card">
-            <div class="service-img" style="height: 180px; background: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover;"></div>
-            <div class="service-info">
-                <span class="category">Electrical</span>
-                <h3>Electrical Installation</h3>
-                <p>Licensed electricians for wiring, fixtures, and electrical installations</p>
-                <div class="service-meta">
-                    <span style="color: #d4af37;"><i class="fas fa-star"></i> 4.9 (203)</span>
-                    <span><i class="far fa-clock"></i> 3 hours</span>
-                </div>
-                <div class="service-footer">
-                    <div>
-                        <span style="font-size: 11px; color: #888; display: block;">Starting at</span>
-                        <span class="price">NPR 2000</span>
-                    </div>
-                    <button class="book-btn">Book <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </div>
+
+    <%@ include file="footer_guest.jsp" %>
+
 </body>
 </html>

@@ -4,82 +4,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ServiceHub | Create Account</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>ServiceHub | Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/register.css">
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/userdashboard.css?v=5.0">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo"><i class="fas fa-wrench"></i> ServiceHub</div>
-        <ul class="nav-links">
-            <li><a href="${pageContext.request.contextPath}/index">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/services">Services</a></li>
-            <li><a href="#">About</a></li>
-            
-        </ul>
-        <div class="auth-group">
-            <a href="${pageContext.request.contextPath}/login" class="login-link">Login</a>
-            <a href="${pageContext.request.contextPath}/register" class="btn-green">Register</a>
-        </div>
-    </nav>
 
-    <main class="auth-container">
-        <div class="auth-card">
-            <h2 class="auth-title">Create Account</h2>
-            <p class="auth-subtitle">Join our platform today</p>
+    <%@ include file="header_guest.jsp" %>
+
+    <div class="auth-container" style="display: flex; align-items: center; justify-content: center; padding: 60px 0; min-height: 70vh;">
+        <div class="card" style="width: 100%; max-width: 480px; padding: 40px; background: white;">
+            <h2 style="text-align: center; font-size: 26px; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">Create Account</h2>
+            <p style="text-align: center; color: var(--text-sub); font-size: 14px; margin-bottom: 24px;">Join our platform today</p>
             
             <c:if test="${not empty error}">
-                <div class="error-message">
+                <div style="background-color: #FDF2F2; color: #EC5B5B; padding: 12px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; margin-bottom: 20px;">
                     <i class="fas fa-exclamation-circle"></i> ${error}
                 </div>
             </c:if>
 
-            <form action="${pageContext.request.contextPath}/register" method="post">
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <div class="input-wrapper">
-                        <i class="far fa-user"></i>
-                        <input type="text" name="full_name" placeholder="Enter your full name" required>
-                    </div>
+            <form action="${pageContext.request.contextPath}/register" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Full Name</label>
+                    <input type="text" name="fullName" placeholder="Enter your full name" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Email Address</label>
+                    <input type="email" name="email" placeholder="Enter your email" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Phone Number</label>
+                    <input type="tel" name="phone" placeholder="10-digit phone number" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Password</label>
+                    <input type="password" name="password" placeholder="Minimum 6 characters" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Confirm Password</label>
+                    <input type="password" name="confirmPassword" placeholder="Re-enter password" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
                 </div>
                 
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <div class="input-wrapper">
-                        <i class="far fa-envelope"></i>
-                        <input type="email" name="email" placeholder="Enter your email" required>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label>Phone Number</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-phone-alt"></i>
-                        <input type="text" name="number" placeholder="10-digit phone number" required>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label>Password</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" name="password" placeholder="Minimum 8 characters" required>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label>Confirm Password</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" name="confirm_password" placeholder="Re-enter password" required>
-                    </div>
-                </div>
-                
-                <button type="submit" class="auth-btn">Create Account</button>
+                <button type="submit" class="btn btn-primary" style="padding: 14px; width: 100%; margin-top: 12px;">Create Account</button>
             </form>
-            <p class="auth-footer">Already have an account? <a href="${pageContext.request.contextPath}/login">Login here</a></p>
+
+            <p style="text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-sub);">Already have an account? <a href="login" style="color: var(--primary-color); font-weight: 700;">Login here</a></p>
         </div>
-    </main>
+    </div>
+
+    <%@ include file="footer_guest.jsp" %>
+
 </body>
 </html>

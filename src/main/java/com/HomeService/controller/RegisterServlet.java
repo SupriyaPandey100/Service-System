@@ -1,63 +1,66 @@
 package com.HomeService.controller;
 
+import com.HomeService.dao.UserDAO;
+import com.HomeService.model.UserModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
-import com.service_hub.model.UserModel;
-import com.service_hub.service.RegisterService;
-
-@WebServlet(asyncSupported = true, urlPatterns = { "/register" })
+@WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public RegisterServlet() {
-        super();
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Serves the register.jsp page when the user navigates to /register
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-           
-            String fullName = request.getParameter("full_name");
-            String email = request.getParameter("email");
-            String number = request.getParameter("number");
-            String password = request.getParameter("password");
-            String confirmPassword = request.getParameter("confirm_password");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        String name = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String password = request.getParameter("password");
+        String confirm = request.getParameter("confirmPassword");
 
-            // Validate that passwords match before proceeding
-            if (password == null || !password.equals(confirmPassword)) {
-                request.setAttribute("error", "Passwords do not match!");
+        // 1. Password Validation
+        if (password == null || !password.equals(confirm)) {
+            request.setAttribute("error", "Passwords do not match!");
+            request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
+            return;
+        }
+
+        UserDAO dao = new UserDAO();
+        try {
+            // 2. Pro-Tip: Check if User already exists to avoid SQL errors
+            if (dao.getUserByEmail(email) != null) {
+                request.setAttribute("error", "An account with this email already exists.");
                 request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
                 return;
             }
 
-            // Populate the UserModel
-            UserModel user = new UserModel();
-            user.setFullName(fullName);
-            user.setEmail(email);
-            user.setNumber(number);
-            user.setPassword(password);
-            user.setRole("USER"); // Default role for new sign-ups
+            // 3. Populate Model
+            UserModel newUser = new UserModel();
+            newUser.setFullName(name);
+            newUser.setEmail(email);
+            newUser.setPhone(phone); 
+            newUser.setPassword(password);
+            newUser.setRole("customer");
+            newUser.setStatus("ACTIVE");
 
-            // Call service to add user (handles BCrypt hashing and DB insertion)
-            RegisterService service = new RegisterService();
-            service.addUser(user);
+            // 4. Save to Database
+            dao.insertUser(newUser);
             
-            // Redirect to login page after successful registration, passing a success flag
-            response.sendRedirect(request.getContextPath() + "/login?success=true");
+            // Redirect to login with a success message
+            response.sendRedirect(request.getContextPath() + "/login?msg=RegistrationSuccess");
             
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Send the error message back to the UI if email/number already exists
-            request.setAttribute("error", e.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+            // TEMPORARY FIX: Show the exact error on the screen
+            request.setAttribute("error", "DB Error: " + e.getMessage());
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
         }
     }

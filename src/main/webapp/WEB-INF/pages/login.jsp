@@ -1,104 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<!-- FIXED JSTL URI FOR TOMCAT 10 -->
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ServiceHub | Our Services</title>
+    <title>ServiceHub | Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/shared.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userdashboard.css?v=5.0">
 </head>
-
 <body>
-    <nav class="navbar">
-        <div class="logo"><i class="fas fa-wrench"></i> ServiceHub</div>
-        <div class="nav-links">
-            <a href="${pageContext.request.contextPath}/index">Home</a>
-            <a href="${pageContext.request.contextPath}/services">Services</a>
-            <a href="#">About</a>
+
+    <%@ include file="header_guest.jsp" %>
+
+    <div class="auth-container" style="display: flex; align-items: center; justify-content: center; padding: 60px 0; min-height: 70vh;">
+        <div class="card" style="width: 100%; max-width: 450px; padding: 40px; background: white;">
+            <h2 style="text-align: center; font-size: 26px; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">Welcome Back</h2>
+            <p style="text-align: center; color: var(--text-sub); font-size: 14px; margin-bottom: 24px;">Sign in to your account</p>
             
-        </div>
-        <div class="auth-links" style="display: flex; align-items: center; gap: 20px;">
-            <c:choose>
-                <c:when test="${not empty userSession}">
-                    <a href="${pageContext.request.contextPath}/dashboard" style="color: white; text-decoration: none;">Dashboard</a>
-                    <span style="color: white;"><i class="far fa-user"></i> ${userSession.fullName}</span>
-                    <a href="${pageContext.request.contextPath}/logout" class="nav-btn" style="text-decoration: none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="${pageContext.request.contextPath}/login" style="color: white; text-decoration: none;">Login</a>
-                    <a href="${pageContext.request.contextPath}/register" class="nav-btn" style="text-decoration: none;">Register</a>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </nav>
+            <c:if test="${not empty error}">
+                <div style="background-color: #FDF2F2; color: #EC5B5B; padding: 12px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; margin-bottom: 20px;">
+                    <i class="fas fa-exclamation-circle"></i> ${error}
+                </div>
+            </c:if>
 
-    <div class="services-header">
-        <h1>Our Services</h1>
-        <p>Browse through our wide range of professional home services</p>
-        <div class="search-bar">
-            <i class="fas fa-search" style="position: absolute; margin: 15px 0 0 15px; color: #888;"></i>
-            <input type="text" placeholder="Search for services..." style="padding-left: 45px;">
+            <form action="${pageContext.request.contextPath}/login" method="post" style="display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Email Address</label>
+                    <input type="email" name="email" value="${rememberedEmail}" placeholder="Enter your email" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="padding: 14px; width: 100%; margin-top: 8px;">Sign In</button>
+            </form>
+            
+            <p style="text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-sub);">Don't have an account? <a href="${pageContext.request.contextPath}/register" style="color: var(--primary-color); font-weight: 700;">Register here</a></p>
         </div>
     </div>
 
-    <div class="filter-tabs">
-        <button class="active">All</button>
-        <button>Plumbing</button>
-        <button>Electrical</button>
-        <button>Painting</button>
-        <button>Cleaning</button>
-        <button>AC Repair</button>
-        <button>Carpentry</button>
-    </div>
-
-    <div class="services-grid">
-        <div class="service-card">
-            <!-- Replaced broken img with Unsplash link from your other file -->
-            <div class="service-img" style="height: 180px; background: url('https://images.unsplash.com/photo-1585704032915-c3400ca199e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover;"></div>
-            <div class="service-info">
-                <span class="category">Plumbing</span>
-                <h3>Plumbing Repair</h3>
-                <p>Professional plumbing repair services for leaks, clogs, and pipe issues</p>
-                <div class="service-meta">
-                    <span style="color: #d4af37;"><i class="fas fa-star"></i> 4.8 (158)</span>
-                    <span><i class="far fa-clock"></i> 2 hours</span>
-                </div>
-                <div class="service-footer">
-                    <div>
-                        <span style="font-size: 11px; color: #888; display: block;">Starting at</span>
-                        <span class="price">NPR 1500</span>
-                    </div>
-                    <button class="book-btn">Book <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="service-card">
-            <div class="service-img" style="height: 180px; background: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover;"></div>
-            <div class="service-info">
-                <span class="category">Electrical</span>
-                <h3>Electrical Installation</h3>
-                <p>Licensed electricians for wiring, fixtures, and electrical installations</p>
-                <div class="service-meta">
-                    <span style="color: #d4af37;"><i class="fas fa-star"></i> 4.9 (203)</span>
-                    <span><i class="far fa-clock"></i> 3 hours</span>
-                </div>
-                <div class="service-footer">
-                    <div>
-                        <span style="font-size: 11px; color: #888; display: block;">Starting at</span>
-                        <span class="price">NPR 2000</span>
-                    </div>
-                    <button class="book-btn">Book <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <%@ include file="footer_guest.jsp" %>
 </body>
 </html>

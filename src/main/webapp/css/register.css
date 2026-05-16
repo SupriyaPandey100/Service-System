@@ -1,1 +1,122 @@
 @charset "UTF-8";
+
+/* Centering the card on the page */
+.auth-container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #f8f9fa; /* Light gray background to make white card pop */
+}
+
+.auth-card {
+    background: #ffffff;
+    padding: 40px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.auth-card h2 {
+    color: #000000;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.auth-card p {
+    color: #6b7280;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+/* Positioning icons inside inputs */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 1rem;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 15px 12px 45px; /* Extra left padding for icon */
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: 0.2s;
+    box-sizing: border-box;
+}
+
+.input-wrapper input:focus {
+    border-color: #155DFC;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(21, 93, 252, 0.1);
+}
+
+/* Figma Blue Button */
+.btn-submit {
+    width: 100%;
+    background-color: #155DFC;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #0d4bc7;
+}
+
+.error-msg {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    border: 1px solid #fee2e2;
+}
+
+.auth-footer-text {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.auth-footer-text a {
+    color: #155DFC;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.auth-footer-text a:hover {
+    text-decoration: underline;
+}

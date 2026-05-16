@@ -1,27 +1,30 @@
 package com.HomeService.service;
 
-import com.service_hub.dao.UserDAO;
-import com.service_hub.model.UserModel;
-import com.service_hub.utils.PasswordUtil;
+import com.HomeService.dao.UserDAO;
+import com.HomeService.model.UserModel;
+import com.HomeService.utils.PasswordUtil;
 
 public class LoginService {
-    private UserDAO dao;
+    private UserDAO userDAO;
 
     public LoginService() {
-        this.dao = new UserDAO();
+        this.userDAO = new UserDAO();
     }
 
     public UserModel authenticate(String email, String password) throws Exception {
-        UserModel user = dao.getUserByEmail(email);
+        UserModel user = userDAO.getUserByEmail(email);
 
+        // Verify user exists and password matches the stored BCrypt hash
         if (user != null && PasswordUtil.checkPassword(password, user.getPassword())) {
-            // APPROVAL WORKFLOW CHECK
+            
+            // Business Rule: Check account status
             if ("PENDING".equalsIgnoreCase(user.getStatus())) {
-                throw new Exception("Your account is waiting for Admin approval.");
+                throw new Exception("Your account is pending admin approval.");
             } else if ("REJECTED".equalsIgnoreCase(user.getStatus())) {
-                throw new Exception("Your registration was rejected.");
+                throw new Exception("Your account registration was rejected.");
             }
-            return user; // Authentication passed and user is approved
+            
+            return user;
         }
         
         throw new Exception("Invalid email or password.");

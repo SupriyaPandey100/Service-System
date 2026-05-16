@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   about.css - Figma Matched (Pure White Body, Purple Accents, Blue Button)
+   ========================================================================== */
+
+/* PURE WHITE BODY */
+body {
+    background-color: #ffffff;
+    color: #111827;
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* SPECIFIC CLASS SELECTOR TO PREVENT CONFLICTS WITH GENERAL HTML TAGS */
+.about-hero-banner {
+    height: 380px;  /* Optimized height context to prevent layout stacking */
+    background: url("../images/Aboutpage.jpg") center/cover no-repeat;
+    background-color: #5D558A; /* Figma Theme Fallback Background Color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.hero-overlay {
+    text-align: center;
+    color: #ffffff;
+    background: rgba(45, 38, 75, 0.55); /* Deep rich overlay highlight tint */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.hero-icon {
+    background: rgba(255, 255, 255, 0.25);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 1.6rem;
+}
+
+.about-hero-banner h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    color: #ffffff;
+}
+
+.about-hero-banner p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin: 0;
+}
+
+/* MISSION BOX CONTENT WRAPPER */
+.mission-container {
+    padding: 0 5%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 20; /* Safely elevates the layout pane layer higher */
+}
+
+.mission-box {
+    background: #ffffff;
+    padding: 45px 50px;
+    border-radius: 16px;
+    margin-top: -60px; /* Moves up cleanly to overlap without consuming the title view */
+    position: relative;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08); 
+    text-align: center;
+    border: 1px solid #f3f4f6;
+}
+
+/* Figma Purple Accent Text Header */
+.mission-box h2 {
+    color: #5D558A; 
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+}
+
+.mission-box p {
+    color: #4b5563; 
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+}
+
+.mission-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* JOIN BANNER CONTAINER MODULE */
+.join-container {
+    padding: 60px 5% 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.join-box {
+    background-color: #5D558A; /* Figma Purple Global Palette Setting */
+    color: #ffffff;
+    padding: 50px 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(93, 85, 138, 0.15);
+}
+
+.join-box h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.join-box p {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    margin-bottom: 24px;
+}
+
+/* CALL TO ACTION BUTTON SELECTORS */
+.btn-blue {
+    background-color: #155DFC; /* Figma Action Blue Brand Color */
+    color: #ffffff;
+    border: none;
+    padding: 14px 35px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-blue:hover {
+    background-color: #0d4bc7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(21, 93, 252, 0.3);
+}
+
+/* GRID LAYOUT SECTION */
+.values-section {
+    padding: 60px 5% 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-title {
+    margin-bottom: 45px;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.value-card {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    text-align: left;
+    border: 1px solid #e5e7eb; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border-color: #d1d5db;
+}
+
+.card-icon {
+    background: #f3f4f6; 
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    color: #5D558A; 
+    font-size: 1.25rem;
+}
+
+.value-card h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 10px 0;
+}
+
+.value-card p {
+    color: #4b5563;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* RESPONSIVE LAYOUT CONSTRAINTS */
+@media (max-width: 768px) {
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-hero-banner h1 {
+        font-size: 2.2rem;
+    }
+    
+    .mission-box {
+        padding: 35px 20px;
+        margin-top: -40px;
+    }
+}

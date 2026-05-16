@@ -2,32 +2,31 @@ package com.HomeService.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
- * Utility class to manage MySQL database connections.
- * Matches Task A requirements for Database Development.
+ * DBconfig Utility - Manages JDBC connections to MySQL.
  */
 public class DBconfig {
-
-    // Database credentials matching your local XAMPP/MySQL setup
-    private static final String URL = "jdbc:mysql://localhost:3306/servicehub_db";
-    private static final String USER = "root";
-    private static final String PASSWORD = ""; // Leave empty if using default XAMPP settings
+    
+    // Updated to match your new database name
+    private static final String URL = "jdbc:mysql://localhost:3306/servicehome_db";
+    private static final String USER = "root";     
+    private static final String PASS = ""; // Default for XAMPP is empty
 
     /**
-     * Establishes and returns a connection to the database.
+     * Establishes a connection to the MySQL database.
      */
-    public static Connection getConnection() {
-        Connection conn = null;
+    public static Connection getConnection() throws SQLException {
         try {
-            // Load MySQL JDBC Driver
+            // Loading the modern MySQL JDBC Driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("✅ Successfully connected to Service Hub DB");
-        } catch (Exception e) {
-            System.out.println("Database Connection Failed!");
-            e.printStackTrace(); 
+            
+            // FIXED: Using 'PASS' to match the variable declared above
+            return DriverManager.getConnection(URL, USER, PASS);
+            
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("MySQL JDBC Driver not found. Ensure mysql-connector-j.jar is in WEB-INF/lib.", e);
         }
-        return conn;
     }
 }

@@ -1,29 +1,44 @@
 package com.HomeService.service;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
+// --- CRITICAL IMPORTS TO FIX THE ERRORS ---
 import java.util.List;
-import com.service_hub.dao.UserDAO;
-import com.service_hub.model.UserModel;
+import java.sql.SQLException;
+import com.HomeService.dao.UserDAO;
+import com.HomeService.model.UserModel;
 
+/**
+ * ListService - Business logic layer for managing user lists.
+ * Sits between the Controller (Servlet) and the Data Access Layer (DAO).
+ */
 public class ListService {
-    private UserDAO dao;
-    
+    private UserDAO userDAO;
+
     public ListService() {
-        this.dao = new UserDAO();
+        // Initializing the Data Access Object
+        this.userDAO = new UserDAO();
     }
 
-    public List<UserModel> fetchAllUsers() throws Exception {
-        return dao.getAllUsers(); 
+    /**
+     * Requirement: Dynamic Data Retrieval
+     * @return List of UserModel objects from the database
+     * @throws SQLException if database access fails
+     */
+    public List<UserModel> fetchAllUsers() throws SQLException {
+        // Calls the DAO to get the current state of the users table
+        return userDAO.getAllUsers();
     }
-    
-    public void updateUserStatus(int userId, String action) throws Exception {
-        String newStatus = action.equals("APPROVE") ? "APPROVED" : "REJECTED";
-        dao.updateUserStatus(userId, newStatus);
+
+    /**
+     * Requirement: Admin Business Logic
+     * @param userId The ID of the user to update
+     * @param action The string action from the UI
+     * @throws SQLException if update fails
+     */
+    public void updateUserStatus(int userId, String action) throws SQLException {
+        // Business Rule: Translate UI actions into database-friendly statuses
+        String newStatus = "APPROVE".equalsIgnoreCase(action) ? "APPROVED" : "REJECTED";
+        
+        // Pass the processed status down to the DAO layer
+        userDAO.updateUserStatus(userId, newStatus);
     }
 }

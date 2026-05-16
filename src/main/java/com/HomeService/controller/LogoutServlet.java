@@ -8,24 +8,34 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * LogoutServlet - Securely ends the user's session and redirects them.
+ */
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Get the current session
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        
+        // 1. Fetch the current session. 
+        // Passing 'false' ensures we don't accidentally create a NEW session just to destroy it.
         HttpSession session = request.getSession(false);
         
+        // 2. If a session exists, completely wipe it out
         if (session != null) {
-            // 2. Destroy the session (clears all user data)
-            session.invalidate();
+            session.invalidate(); 
         }
         
-        // 3. Redirect the user back to the login page or home page
-        response.sendRedirect(request.getContextPath() + "/login?message=logged_out");
+        // 3. Redirect the user back to the login page securely
+        response.sendRedirect(request.getContextPath() + "/login?message=LoggedOut");
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        // Just in case a form posts to /logout, route it to the same logic
         doGet(request, response);
     }
 }
