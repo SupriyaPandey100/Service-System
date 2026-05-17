@@ -8,6 +8,8 @@ public class BookingModel {
     private String serviceName;
     private Date serviceDate;
     private String serviceTime;
+    private String address;         // <-- Added Address
+    private String instructions;    // <-- Added Instructions
     private String status;
     private double price;
     private Timestamp createdAt;
@@ -31,6 +33,14 @@ public class BookingModel {
     public String getServiceTime() { return serviceTime; }
     public void setServiceTime(String serviceTime) { this.serviceTime = serviceTime; }
     
+    // --- NEW GETTERS AND SETTERS ---
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+    
+    public String getInstructions() { return instructions; }
+    public void setInstructions(String instructions) { this.instructions = instructions; }
+    // -------------------------------
+
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     

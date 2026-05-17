@@ -1,7 +1,7 @@
 package com.HomeService.controller;
 
 import com.HomeService.dao.NotificationDAO;
-import com.HomeService.dao.BookingDAO; // <-- Added BookingDAO
+import com.HomeService.dao.BookingDAO; 
 import com.HomeService.model.NotificationModel;
 import com.HomeService.model.UserModel;
 
@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map; // <-- Added Map for the booking counts
+import java.util.Map;
 
 @WebServlet("/dashboard") 
 public class UserDashboardServlet extends HttpServlet {
@@ -49,13 +49,12 @@ public class UserDashboardServlet extends HttpServlet {
             BookingDAO bookingDao = new BookingDAO();
             Map<String, Integer> counts = bookingDao.getBookingCounts(user.getId());
             
-            // Replaced mocked data with live data from the database map
-            request.setAttribute("totalBookings", counts.get("All"));     
-            request.setAttribute("pendingBookings", counts.get("Pending"));    
-            request.setAttribute("completedBookings", counts.get("Completed"));  
+            // CRITICAL FIX: Pass the entire map to match what userdashboard.jsp is expecting
+            // This allows the JSP to dynamically call ${bookingCounts['All']}, ${bookingCounts['Pending']}, etc.
+            request.setAttribute("bookingCounts", counts);
             
             
-            // Send the user object to the JSP
+            // Send the user object to the JSP context
             request.setAttribute("user", user);
 
             // 4. Forward to the View

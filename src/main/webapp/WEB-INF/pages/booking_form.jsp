@@ -13,9 +13,9 @@
 </head>
 <body style="background-color: #f9fafb; margin: 0; font-family: 'Plus Jakarta Sans', sans-serif;">
 
-    <%@ include file="header.jsp" %>
+    <jsp:include page="header.jsp" />
 
-    <main class="container" style="padding: 40px inherit; min-height: 75vh; display: flex; justify-content: center; align-items: center; max-width: 1200px; margin: 0 auto;">
+    <main class="container" style="padding: 40px 20px; min-height: 75vh; display: flex; justify-content: center; align-items: center; max-width: 1200px; margin: 0 auto;">
         <div class="card" style="width: 100%; max-width: 650px; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; box-sizing: border-box;">
             
             <div style="text-align: center; margin-bottom: 30px; border-bottom: 1px solid #e5e7eb; padding-bottom: 20px;">
@@ -48,17 +48,17 @@
                 </div>
 
                 <div>
-                    <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #111827;">Service Delivery Address</label>
+                    <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #111827;">Service Delivery Address <span style="color:#EB5757;">*</span></label>
                     <input type="text" name="address" required placeholder="House number, Street Name, Ward, City" style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #111827;">Preferred Date</label>
-                        <input type="date" name="bookingDate" required style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
+                        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #111827;">Preferred Date <span style="color:#EB5757;">*</span></label>
+                        <input type="date" name="bookingDate" required min="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>" style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-family: inherit; box-sizing: border-box;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #111827;">Preferred Arrival Time</label>
+                        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #111827;">Preferred Arrival Time <span style="color:#EB5757;">*</span></label>
                         <select name="bookingTime" required style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-family: inherit; background: white; box-sizing: border-box; height: 46px;">
                             <option value="">Choose a time slot</option>
                             <option value="Morning (8:00 AM - 12:00 PM)">Morning (8:00 AM - 12:00 PM)</option>
@@ -80,7 +80,7 @@
         </div>
     </main>
 
-    <%@ include file="footer.jsp" %>
+    <jsp:include page="footer.jsp" />
 
 </body>
 </html>

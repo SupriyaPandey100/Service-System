@@ -23,7 +23,8 @@
         
         <section class="welcome-banner">
             <div class="welcome-text">
-                <h1>Welcome back, <c:out value="${user.fullName}"/>! <i class="fas fa-hand-sparkles" style="color: #FFD700;"></i></h1>
+                <c:set var="activeUser" value="${not empty sessionScope.loggedUser ? sessionScope.loggedUser : sessionScope.userSession}" />
+                <h1>Welcome back, <c:out value="${activeUser.fullName}" default="Guest"/>! <i class="fas fa-hand-sparkles" style="color: #FFD700;"></i></h1>
                 <p>Find and manage your home services easily.</p>
             </div>
             <a href="${pageContext.request.contextPath}/services" class="btn btn-primary">Browse Services</a>
@@ -34,8 +35,8 @@
                 <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
                 <div class="stat-info">
                     <span class="stat-label">Total Bookings</span>
-                    <div class="stat-value"><c:out value="${totalBookings}"/></div>
-                    <a href="${pageContext.request.contextPath}/bookings" class="view-link">View all bookings &rarr;</a>
+                    <div class="stat-value"><c:out value="${bookingCounts['All']}" default="0"/></div>
+                    <a href="${pageContext.request.contextPath}/bookings?status=All" class="view-link">View all bookings &rarr;</a>
                 </div>
             </div>
             
@@ -43,8 +44,8 @@
                 <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
                 <div class="stat-info">
                     <span class="stat-label">Pending</span>
-                    <div class="stat-value"><c:out value="${pendingBookings}"/></div>
-                    <a href="${pageContext.request.contextPath}/bookings?status=pending" class="view-link">View pending &rarr;</a>
+                    <div class="stat-value"><c:out value="${bookingCounts['Pending']}" default="0"/></div>
+                    <a href="${pageContext.request.contextPath}/bookings?status=Pending" class="view-link">View pending &rarr;</a>
                 </div>
             </div>
             
@@ -52,8 +53,8 @@
                 <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-info">
                     <span class="stat-label">Completed</span>
-                    <div class="stat-value"><c:out value="${completedBookings}"/></div>
-                    <a href="${pageContext.request.contextPath}/bookings?status=completed" class="view-link">View completed &rarr;</a>
+                    <div class="stat-value"><c:out value="${bookingCounts['Completed']}" default="0"/></div>
+                    <a href="${pageContext.request.contextPath}/bookings?status=Completed" class="view-link">View completed &rarr;</a>
                 </div>
             </div>
             
@@ -61,7 +62,7 @@
                 <div class="stat-icon"><i class="fas fa-bell"></i></div>
                 <div class="stat-info">
                     <span class="stat-label">Notifications</span>
-                    <div class="stat-value"><c:out value="${notificationCount}"/></div>
+                    <div class="stat-value"><c:out value="${notificationCount}" default="0"/></div>
                     <a href="#" class="view-link">View all &rarr;</a>
                 </div>
             </div>
@@ -79,7 +80,7 @@
                     
                     <div class="services-grid">
                         <a href="${pageContext.request.contextPath}/services?category=Cleaning" class="service-category">
-                            <div class="service-category-icon"><i class="fas fa-broom"></i></div>
+                            <div class="service-category-icon"><i class="fa-solid fa-broom"></i></div>
                             <span class="service-category-name">Cleaning</span>
                         </a>
                         <a href="${pageContext.request.contextPath}/services?category=Plumbing" class="service-category">
