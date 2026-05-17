@@ -1,5 +1,8 @@
 package com.HomeService.controller;
 
+import com.HomeService.dao.BookingDAO;
+import com.HomeService.model.BookingModel;
+import com.HomeService.model.UserModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,73 +15,121 @@ import java.io.IOException;
 public class BookingServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession(true);
-        
-        // 1. SESSION ATTRIBUTE SYNCHRONIZATION
-        // Guarantees both tracking conventions match, keeping header components functional
-        Object loggedUser = session.getAttribute("loggedUser");
-        Object userSession = session.getAttribute("userSession");
-        
-        if (loggedUser != null && userSession == null) {
-            session.setAttribute("userSession", loggedUser);
-        } else if (userSession != null && loggedUser == null) {
-            session.setAttribute("loggedUser", userSession);
-        }
 
-        // 2. CAPTURE DATA FROM SELECTION INTENT
-        String serviceName = request.getParameter("serviceName");
-        String price = request.getParameter("price");
+        HttpSession session = request.getSession(true);
+
         
+        Object loggedUser  = session.getAttribute("loggedUser");
+        Object userSession = session.getAttribute("userSession");
+        if (loggedUser != null && userSession == null) session.setAttribute("userSession", loggedUser);
+        else if (userSession != null && loggedUser == null) session.setAttribute("loggedUser", userSession);
+
+        
+        String serviceName = request.getParameter("serviceName");
+        String price       = request.getParameter("price");
+        String serviceId   = request.getParameter("serviceId");
+
         if (serviceName != null && !serviceName.trim().isEmpty()) {
             session.setAttribute("pendingServiceName", serviceName);
             session.setAttribute("pendingPrice", price);
+            session.setAttribute("pendingServiceId", serviceId != null ? serviceId : "0");
         }
 
-        // 3. INTERCEPT GUESTS: Force authentication checkpoint
-        if (session.getAttribute("loggedUser") == null) {
-            request.setAttribute("error", "Please sign in to your account to complete your booking.");
-            request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+        
+        if (session.getAttribute("loggedUser") == null && session.getAttribute("userSession") == null) {
+            session.setAttribute("redirectAfterLogin", request.getContextPath() + "/book");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        // 4. FALLBACK REDIRECTION
-        // If a logged-in user accesses /book directly without selecting a card asset
+        
         if (session.getAttribute("pendingServiceName") == null) {
             response.sendRedirect(request.getContextPath() + "/services");
             return;
         }
 
-        // AUTHORIZED USERS: Render input template form
+        
         request.getRequestDispatcher("/WEB-INF/pages/booking_form.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession(false);
-        if (session == null || (session.getAttribute("loggedUser") == null && session.getAttribute("userSession") == null)) {
+
+        if (session == null ||
+            (session.getAttribute("loggedUser") == null && session.getAttribute("userSession") == null)) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
-        
-        // Extract processing payload data from incoming intake form fields
-        String address = request.getParameter("address");
-        String bookingDate = request.getParameter("bookingDate");
-        String bookingTime = request.getParameter("bookingTime");
-        String instructions = request.getParameter("instructions");
-        String serviceName = (String) session.getAttribute("pendingServiceName");
-        
-        // Note: Invoke your transactional persistence mapping here 
-        // e.g., bookingDAO.createBooking(..., serviceName, bookingDate, address);
 
-        // State lifecycle cleanup: Flush staging variables out of session tracking context memory
+        UserModel user = (UserModel) session.getAttribute("loggedUser");
+        if (user == null) user = (UserModel) session.getAttribute("userSession");
+
+        String serviceName  = (String) session.getAttribute("pendingServiceName");
+        String priceStr     = (String) session.getAttribute("pendingPrice");
+        String serviceIdStr = (String) session.getAttribute("pendingServiceId");
+
+       
+        String customerPhone   = request.getParameter("customerPhone");
+        String preferredDate   = request.getParameter("preferredDate");
+        String preferredTime   = request.getParameter("preferredTime");
+        String serviceAddress  = request.getParameter("serviceAddress");
+        String additionalNotes = request.getParameter("additionalNotes");
+
+        double price = 0;
+        try {
+            if (priceStr != null && !priceStr.isEmpty()) {
+                price = Double.parseDouble(priceStr);
+            }
+        } catch (NumberFormatException e) {
+            price = 0;
+        }
+
+        int serviceId = 0;
+        try {
+            if (serviceIdStr != null && !serviceIdStr.isEmpty()) {
+                serviceId = Integer.parseInt(serviceIdStr);
+            }
+        } catch (NumberFormatException e) {
+            serviceId = 0;
+        }
+
+       
+        BookingModel booking = new BookingModel();
+        booking.setUserId(user.getId());
+        booking.setServiceId(serviceId);
+        booking.setServiceName(serviceName);
+        booking.setServicePrice(price);
+        booking.setCustomerName(user.getFullName());
+        booking.setCustomerPhone(customerPhone);
+        booking.setPreferredDate(preferredDate);
+        booking.setPreferredTime(preferredTime);
+        booking.setServiceAddress(serviceAddress);
+        booking.setAdditionalNotes(additionalNotes);
+        booking.setTotalAmount(price);
+      
+        BookingDAO dao = new BookingDAO();
+        boolean saved = dao.createBooking(booking);
+
+       
         session.removeAttribute("pendingServiceName");
         session.removeAttribute("pendingPrice");
+        session.removeAttribute("pendingServiceId");
+        session.removeAttribute("redirectAfterLogin");
 
-        // Forward safely directly to the user record history view mapping controller
+        
+        if (saved) {
+            session.setAttribute("successMessage",
+                "Your booking for " + serviceName + " has been placed successfully! We will confirm it shortly.");
+        } else {
+            session.setAttribute("errorMessage",
+                "Something went wrong while saving your booking. Please try again.");
+        }
+
+       
         response.sendRedirect(request.getContextPath() + "/bookings");
     }
 }

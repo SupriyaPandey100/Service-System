@@ -1,10 +1,6 @@
 @charset "UTF-8";
 
-/* ==========================================================================
-   shared.css - Global Styles (Navbar, Footer, Typography) - Figma Matched
-   ========================================================================== */
 
-/* Basic Reset & Typography */
 * {
     margin: 0;
     padding: 0;
@@ -20,9 +16,8 @@ body {
     flex-direction: column;
 }
 
-/* ================== NAVBAR ================== */
 .navbar {
-    background-color: #5D558A; /* Figma Purple */
+    background-color: #5D558A; 
     padding: 20px 5%;
     display: flex;
     justify-content: space-between;
@@ -40,7 +35,7 @@ body {
     text-decoration: none;
 }
 
-/* Nav Links Container */
+
 .nav-links, 
 ul.nav-links {
     display: flex;
@@ -62,7 +57,7 @@ ul.nav-links {
     opacity: 0.8;
 }
 
-/* Auth Buttons in Navbar */
+
 .auth-group {
     display: flex;
     align-items: center;
@@ -83,11 +78,11 @@ ul.nav-links {
     opacity: 0.8;
 }
 
-/* Register Button - Targets both your old and new class names just to be safe! */
+
 .btn-green, 
 .btn-register,
 .auth-group a[href*="register"] {
-    background-color: #9A88BC; /* Figma Light Purple */
+    background-color: #9A88BC; 
     color: #ffffff !important;
     padding: 10px 24px;
     border-radius: 6px;
@@ -99,16 +94,16 @@ ul.nav-links {
 .btn-green:hover, 
 .btn-register:hover,
 .auth-group a[href*="register"]:hover {
-    background-color: #8271a3; /* Darkens slightly on hover */
+    background-color: #8271a3; 
 }
 
 
-/* ================== FOOTER ================== */
+
 .footer {
-    background-color: #5D558A; /* Figma Purple */
+    background-color: #5D558A;
     color: #ffffff;
     padding: 60px 5% 20px;
-    margin-top: auto; /* Pushes footer to the absolute bottom of the page */
+    margin-top: auto; 
 }
 
 .footer-grid {
@@ -165,7 +160,7 @@ ul.nav-links {
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle divider line */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
     padding-top: 20px;
     text-align: center;
     font-size: 0.85rem;

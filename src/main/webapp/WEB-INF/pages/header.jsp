@@ -8,7 +8,7 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="${pageContext.request.contextPath}/dashboard">Dashboard</a></li>
-                <li><a href="${pageContext.request.contextPath}/bookings">My Bookings</a></li>
+                <li><a href="${pageContext.request.contextPath}/About">About</a></li>
                 <li><a href="${pageContext.request.contextPath}/services">Services</a></li>
             </ul>
         </nav>

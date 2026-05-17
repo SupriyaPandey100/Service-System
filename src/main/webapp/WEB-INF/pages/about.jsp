@@ -126,12 +126,12 @@
       
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/team5.jpg" alt="Team Member" class="team-img">
+                    <img src="${pageContext.request.contextPath}/images/pratikshya.jpeg" alt="Pratikshya Shrestha" class="team-img">
                 </div>
                 <div class="team-info">
-                    <h3>Team Member</h3>
-                    <span class="team-role">Team Role</span>
-                    <p class="team-bio">Add description for your fifth team member here.</p>
+                    <h3>Pratikshya Shrestha</h3>
+                    <span class="team-role">Head of Partnerships</span>
+                    <p class="team-bio">Builds strong relationships with service providers, ensuring they meet our high quality standards..</p>
                     <div class="team-social">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
