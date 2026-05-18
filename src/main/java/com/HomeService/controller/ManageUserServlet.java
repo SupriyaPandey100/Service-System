@@ -34,50 +34,75 @@ public class ManageUserServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+
             UserDAO dao = new UserDAO();
-            List<UserModel> allUsers = dao.getAllUsers();
+            List<UserModel> usersFromDB = dao.getAllUsers();
+
+            
+            List<UserModel> allUsers = new ArrayList<>();
+
+            for(UserModel u : usersFromDB) {
+
+                String role = u.getRole();
+
+                if(role != null && !role.trim().equalsIgnoreCase("admin")) {
+                    allUsers.add(u);
+                }
+            }
 
             
             String statusFilter = request.getParameter("status");
+
             if(statusFilter == null || statusFilter.isEmpty()) {
                 statusFilter = "all";
             }
-            
+
             
             List<UserModel> filteredUsers = new ArrayList<>();
-            if("all".equals(statusFilter)) {
+
+            if("all".equalsIgnoreCase(statusFilter)) {
+
                 filteredUsers = allUsers;
+
             } else {
+
                 for(UserModel u : allUsers) {
+
                     if(u.getStatus().equalsIgnoreCase(statusFilter)) {
                         filteredUsers.add(u);
                     }
                 }
             }
-            
+
             
             int totalUsers = allUsers.size();
             int pendingCount = 0;
             int approvedCount = 0;
             int rejectedCount = 0;
-            
+
             for(UserModel u : allUsers) {
+
                 if("pending".equalsIgnoreCase(u.getStatus())) {
+
                     pendingCount++;
+
                 } else if("approved".equalsIgnoreCase(u.getStatus())) {
+
                     approvedCount++;
+
                 } else if("rejected".equalsIgnoreCase(u.getStatus())) {
+
                     rejectedCount++;
                 }
             }
-            
+
             
             request.setAttribute("users", filteredUsers);
             request.setAttribute("totalUsers", totalUsers);
             request.setAttribute("pendingCount", pendingCount);
             request.setAttribute("approvedCount", approvedCount);
             request.setAttribute("rejectedCount", rejectedCount);
-            request.setAttribute("currentFilter", statusFilter); 
+            request.setAttribute("currentFilter", statusFilter);
 
             request.getRequestDispatcher("/WEB-INF/pages/manageuser.jsp")
                    .forward(request, response);
@@ -87,28 +112,31 @@ public class ManageUserServlet extends HttpServlet {
         }
     }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
+
             int id = Integer.parseInt(request.getParameter("id"));
             String action = request.getParameter("action");
-            
+
             
             String currentFilter = request.getParameter("currentFilter");
+
             if(currentFilter == null || currentFilter.isEmpty()) {
                 currentFilter = "all";
             }
 
             UserDAO dao = new UserDAO();
 
-            if (action.equals("approve")) {
-                dao.updateStatus(id, "approved");
-            } else if (action.equals("reject")) {
-                dao.updateStatus(id, "rejected");
+            
+            if(action.equals("approve")) {
+
+                dao.updateUserStatus(id, "approved");
+
+            } else if(action.equals("reject")) {
+
+                dao.updateUserStatus(id, "rejected");
             }
 
             
