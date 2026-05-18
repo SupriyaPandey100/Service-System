@@ -6,7 +6,6 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* HERO BANNER */
 .about-hero-banner {
     position: relative;
     width: 100%;
@@ -18,14 +17,16 @@ body {
 }
 
 .hero-overlay {
-    background: linear-gradient(135deg, rgba(21, 93, 252, 0.82), rgba(93, 85, 138, 0.82));
+    text-align: center;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.38);
     width: 100%;
-    min-height: 420px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 50px 20px;
+    align-items: center;
+    padding: 20px;
 }
 
 .hero-icon-circle {
@@ -58,7 +59,6 @@ body {
     line-height: 1.6;
 }
 
-/* STATS BAR */
 .stats-bar-wrapper {
     max-width: 1100px;
     margin: -50px auto 0 auto;
@@ -114,7 +114,6 @@ body {
     background: #e5e7eb;
 }
 
-/* MISSION SECTION */
 .mission-container {
     padding: 70px 24px 50px;
     max-width: 1100px;
@@ -147,7 +146,6 @@ body {
 
 .mission-text:last-child { margin-bottom: 0; }
 
-/* TEAM SECTION */
 .team-section {
     padding: 60px 24px;
     max-width: 1100px;
@@ -268,7 +266,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* CALL TO ACTION BANNER */
 .join-container {
     padding: 70px 24px;
     background: linear-gradient(135deg, #155DFC, #5D558A);
@@ -332,7 +329,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* CORE VALUES SECTION */
 .values-section {
     padding: 60px 24px 80px;
     max-width: 1100px;
@@ -395,7 +391,6 @@ body {
     margin: 0;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
     .hero-overlay h1 { font-size: 2rem; }
     .hero-overlay p { font-size: 0.95rem; }
