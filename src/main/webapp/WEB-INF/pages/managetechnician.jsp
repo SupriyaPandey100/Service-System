@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manage Technicians | HomeService</title>
+<title>Manage Technicians | ServiceHub</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@ body {
     color: #1a1a1a;
 }
 
-/* Header - Same as Manage User (Purple) */
+/* Header - Same as Manage User */
 header {
     background-color: #5D5482;
     color: #FFFFFF;
@@ -227,7 +227,7 @@ header .container {
     font-size: 14px;
 }
 
-/* Add Button - Blue (like your FIGMA) */
+/* Add Button - Blue */
 .add-btn-container {
     display: flex;
     justify-content: flex-end;
@@ -352,8 +352,8 @@ tr:hover {
     gap: 8px;
 }
 
-.btn-toggle {
-    background: #F2994A;
+.btn-edit {
+    background: #5D5482;
     color: white;
     border: none;
     padding: 6px 12px;
@@ -372,37 +372,11 @@ tr:hover {
     cursor: pointer;
 }
 
-.btn-toggle:hover, .btn-delete:hover {
+.btn-edit:hover, .btn-delete:hover {
     opacity: 0.8;
 }
 
-/* Message Toast */
-.message-toast {
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    background: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1000;
-    animation: slideIn 0.3s ease;
-}
-
-.message-toast.success {
-    border-left: 4px solid #27AE60;
-}
-
-.message-toast.error {
-    border-left: 4px solid #EB5757;
-}
-
-@keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-/* MODAL STYLES - Form pops up */
+/* MODAL STYLES */
 .modal {
     display: none;
     position: fixed;
@@ -562,6 +536,32 @@ tr:hover {
     cursor: pointer;
 }
 
+/* Message Toast */
+.message-toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.message-toast.success {
+    border-left: 4px solid #27AE60;
+}
+
+.message-toast.error {
+    border-left: 4px solid #EB5757;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
 /* Footer - Purple */
 footer {
     background: #5D5482;
@@ -625,12 +625,13 @@ footer {
     <div class="container">
         <a href="${pageContext.request.contextPath}/admin" class="logo-group">
             <i class="fas fa-wrench logo-icon"></i>
-            <span class="brand-name">ServiceHub</span>
+            <span class="brand-name">HomeService</span>
         </a>
        
         <nav>
             <ul class="nav-links">
                 <li><a href="${pageContext.request.contextPath}/admin">Dashboard</a></li>
+                <li><a href="${pageContext.request.contextPath}/services">Services</a></li>
                 <li><a href="${pageContext.request.contextPath}/manageuser">Users</a></li>
                 <li><a href="${pageContext.request.contextPath}/managetechnician" class="active">Technicians</a></li>
                 <li><a href="#">Bookings</a></li>
@@ -684,7 +685,7 @@ footer {
         </script>
     </c:if>
 
-    <!-- Add Button - Blue -->
+    <!-- Add Button -->
     <div class="add-btn-container">
         <button class="btn-add" id="openModalBtn">
             <i class="fas fa-plus-circle"></i> Add Technician
@@ -706,7 +707,15 @@ footer {
             </thead>
             <tbody>
                 <c:forEach items="${technicians}" var="tech">
-                    <tr>
+                    <tr data-id="${tech.technicianId}" 
+                        data-name="${tech.fullName}"
+                        data-email="${tech.email}"
+                        data-phone="${tech.phone}"
+                        data-services="${tech.services}"
+                        data-rating="${tech.rating}"
+                        data-jobs="${tech.completedJobs}"
+                        data-status="${tech.status}">
+                        
                         <td>
                             <div class="tech-name">${tech.fullName}</div>
                             <div class="completed-jobs"><i class="fas fa-briefcase"></i> ${tech.completedJobs} completed jobs</div>
@@ -742,17 +751,12 @@ footer {
                             </span>
                         </td>
                         <td class="action-buttons">
-                            <form method="post" action="managetechnician" style="display: inline;">
-                                <input type="hidden" name="action" value="toggleStatus">
-                                <input type="hidden" name="id" value="${tech.technicianId}">
-                                <input type="hidden" name="currentStatus" value="${tech.status}">
-                                <button type="submit" class="btn-toggle">
-                                    <c:choose>
-                                        <c:when test="${tech.status == 'active'}"><i class="fas fa-pause"></i> Inactive</c:when>
-                                        <c:otherwise><i class="fas fa-play"></i> Active</c:otherwise>
-                                    </c:choose>
-                                </button>
-                            </form>
+                            <!-- EDIT Button -->
+                            <button type="button" class="btn-edit" onclick="openEditModal(${tech.technicianId})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            
+                            <!-- DELETE Button -->
                             <form method="post" action="managetechnician" style="display: inline;" onsubmit="return confirm('Delete ${tech.fullName}?')">
                                 <input type="hidden" name="action" value="delete">
                                 <input type="hidden" name="id" value="${tech.technicianId}">
@@ -775,7 +779,7 @@ footer {
     </div>
 </div>
 
-<!-- MODAL POPUP FORM  -->
+<!-- MODAL POPUP FOR ADD TECHNICIAN -->
 <div id="addTechnicianModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -827,6 +831,59 @@ footer {
     </div>
 </div>
 
+<!-- MODAL POPUP FOR EDIT TECHNICIAN -->
+<div id="editTechnicianModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-edit"></i> Edit Technician</h3>
+            <button class="close-modal" id="closeEditModalBtn">&times;</button>
+        </div>
+        <form method="post" action="managetechnician" id="editForm">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="technician_id" id="edit_id">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Name <span class="required">*</span></label>
+                    <input type="text" name="full_name" id="edit_name" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" name="email" id="edit_email" placeholder="Enter email address" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone <span class="required">*</span></label>
+                    <input type="tel" name="phone" id="edit_phone" placeholder="Enter phone number" required>
+                </div>
+                <div class="form-group">
+                    <label>Services (comma-separated) <span class="required">*</span></label>
+                    <input type="text" name="services" id="edit_services" placeholder="e.g., Plumbing, Electrical" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <input type="number" name="rating" id="edit_rating" step="0.1" min="0" max="5" placeholder="0.0 - 5.0">
+                    </div>
+                    <div class="form-group">
+                        <label>Completed Jobs</label>
+                        <input type="number" name="completed_jobs" id="edit_jobs" min="0" placeholder="Jobs completed">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" id="edit_status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" id="cancelEditModalBtn">Cancel</button>
+                <button type="submit" class="btn-submit"> Update Technician</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer>
     <div class="footer-grid">
@@ -842,7 +899,7 @@ footer {
         </div>
         <div class="footer-col">
             <h3>Contact Info</h3>
-            <p>Email: info@homeservice.com</p>
+            <p>Email: info@servicehub.com</p>
             <p>Phone: +977 9841234567</p>
             <p>Address: Kathmandu, Nepal</p>
         </div>
@@ -853,14 +910,14 @@ footer {
 </footer>
 
 <script>
-    /** Toggle dropdown function **/
+    // Toggle dropdown function
     function toggleDropdown(event) {
         event.stopPropagation();
         var dropdown = document.getElementById('profileDropdown');
         dropdown.classList.toggle('show');
     }
     
-    /** Close dropdown when clicking outside **/
+    // Close dropdown when clicking outside
     document.addEventListener('click', function(event) {
         var dropdown = document.getElementById('profileDropdown');
         var userDropdown = document.querySelector('.user-dropdown');
@@ -872,32 +929,65 @@ footer {
         }
     });
     
-    /** Modal functionality **/
-    var modal = document.getElementById('addTechnicianModal');
-    var openBtn = document.getElementById('openModalBtn');
-    var closeBtn = document.getElementById('closeModalBtn');
-    var cancelBtn = document.getElementById('cancelModalBtn');
+    // ADD MODAL functionality
+    var addModal = document.getElementById('addTechnicianModal');
+    var openAddBtn = document.getElementById('openModalBtn');
+    var closeAddBtn = document.getElementById('closeModalBtn');
+    var cancelAddBtn = document.getElementById('cancelModalBtn');
     
-    function openModal() {
-        modal.classList.add('show');
+    function openAddModal() {
+        addModal.classList.add('show');
     }
     
-    function closeModal() {
-        modal.classList.remove('show');
+    function closeAddModal() {
+        addModal.classList.remove('show');
     }
     
-    if (openBtn) openBtn.addEventListener('click', openModal);
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    if (openAddBtn) openAddBtn.addEventListener('click', openAddModal);
+    if (closeAddBtn) closeAddBtn.addEventListener('click', closeAddModal);
+    if (cancelAddBtn) cancelAddBtn.addEventListener('click', closeAddModal);
     
-    /** Close modal when clicking outside **/
+    // EDIT MODAL functionality
+    var editModal = document.getElementById('editTechnicianModal');
+    var closeEditBtn = document.getElementById('closeEditModalBtn');
+    var cancelEditBtn = document.getElementById('cancelEditModalBtn');
+    
+    function closeEditModal() {
+        editModal.classList.remove('show');
+    }
+    
+    function openEditModal(id) {
+        // Get the row data from data attributes
+        var row = document.querySelector('tr[data-id="' + id + '"]');
+        
+        if (row) {
+            document.getElementById('edit_id').value = id;
+            document.getElementById('edit_name').value = row.getAttribute('data-name');
+            document.getElementById('edit_email').value = row.getAttribute('data-email');
+            document.getElementById('edit_phone').value = row.getAttribute('data-phone');
+            document.getElementById('edit_services').value = row.getAttribute('data-services');
+            document.getElementById('edit_rating').value = row.getAttribute('data-rating');
+            document.getElementById('edit_jobs').value = row.getAttribute('data-jobs');
+            document.getElementById('edit_status').value = row.getAttribute('data-status');
+            
+            editModal.classList.add('show');
+        }
+    }
+    
+    if (closeEditBtn) closeEditBtn.addEventListener('click', closeEditModal);
+    if (cancelEditBtn) cancelEditBtn.addEventListener('click', closeEditModal);
+    
+    // Close modals when clicking outside
     window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            closeModal();
+        if (event.target === addModal) {
+            closeAddModal();
+        }
+        if (event.target === editModal) {
+            closeEditModal();
         }
     });
     
-    /** Search functionality **/
+    // Search functionality
     var searchInput = document.getElementById('searchInput');
     if (searchInput) {
         searchInput.addEventListener('keyup', function() {
