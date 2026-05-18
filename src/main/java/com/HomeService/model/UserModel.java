@@ -3,20 +3,22 @@ package com.HomeService.model;
 import java.io.Serializable;
 
 public class UserModel implements Serializable {
-    private int id;
+    private static final long serialVersionUID = 1L;
+    
+    private int userId; // Aligned with the database column name 'user_id'
     private String fullName;
     private String email;
-    private String phone; // Make sure this is here
+    private String phone;
     private String password;
     private String role;
     private String status;
 
-    // 1. Default Constructor (Required for JavaBeans)
+    // 1. Default Constructor (Required for JavaBeans specification layout guidelines)
     public UserModel() {}
 
-    // 2. Data Retrieval Constructor (Match this to your UserDAO line 80)
-    public UserModel(int id, String fullName, String email, String phone, String role, String status) {
-        this.id = id;
+    // 2. Parameterized Constructor
+    public UserModel(int userId, String fullName, String email, String phone, String role, String status) {
+        this.userId = userId;
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -25,8 +27,8 @@ public class UserModel implements Serializable {
     }
 
     // --- GETTERS AND SETTERS ---
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
