@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <%-- FIX: check both loggedUser and userSession --%>
+    <%-- HEADER: checks both session keys so it always loads correctly --%>
     <c:choose>
         <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
             <%@ include file="header.jsp" %>
@@ -26,7 +26,7 @@
 
     <%-- HERO BANNER --%>
     <div class="about-hero-banner"
-         style="background-image: url('${pageContext.request.contextPath}/images/Aboutpage.jpg');
+         style="background-image: url('${pageContext.request.contextPath}/images/service-hub.png');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;">
@@ -36,6 +36,11 @@
             </div>
             <h1>About ServiceHub</h1>
             <p>Your trusted platform for connecting with professional home service providers</p>
+            <c:if test="${not empty lastVisit}">
+                <div class="last-visit-badge">
+                    <i class="far fa-clock"></i> Last visited: <c:out value="${lastVisit}"/>
+                </div>
+            </c:if>
         </div>
     </div>
 
@@ -75,7 +80,7 @@
                     <span class="team-role">Founder &amp; CEO</span>
                     <p class="team-bio">Visionary leader with 10+ years in home service industry. Passionate about connecting customers with quality professionals.</p>
                     <div class="team-social">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
@@ -180,28 +185,37 @@
         <h2>Our Core Values</h2>
         <div class="values-grid">
             <div class="value-card">
-                <div class="value-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="value-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
                 <h3>Quality Service</h3>
                 <p>We ensure all our service providers deliver top-quality work with professional standards.</p>
             </div>
             <div class="value-card">
-                <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="value-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
                 <h3>Trust &amp; Safety</h3>
                 <p>All professionals are verified, background-checked, and insured for your peace of mind.</p>
             </div>
             <div class="value-card">
-                <div class="value-icon"><i class="fas fa-users"></i></div>
+                <div class="value-icon">
+                    <i class="fas fa-users"></i>
+                </div>
                 <h3>Customer First</h3>
                 <p>Your satisfaction is our priority. We are committed to providing excellent customer service.</p>
             </div>
             <div class="value-card">
-                <div class="value-icon"><i class="fas fa-medal"></i></div>
+                <div class="value-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
                 <h3>Excellence</h3>
                 <p>We strive for excellence in every service, ensuring consistent quality and reliability.</p>
             </div>
         </div>
     </section>
 
+    <%-- FOOTER --%>
     <c:choose>
         <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
             <%@ include file="footer.jsp" %>

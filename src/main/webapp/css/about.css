@@ -6,6 +6,7 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+/* HERO BANNER */
 .about-hero-banner {
     position: relative;
     width: 100%;
@@ -17,20 +18,18 @@ body {
 }
 
 .hero-overlay {
-    text-align: center;
-    color: #ffffff;
-    background: rgba(0, 0, 0, 0.38);
+    background: rgba(0, 0, 0, 0.40);
     width: 100%;
-    height: 100%;
+    min-height: 420px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
+    padding: 50px 20px;
 }
 
 .hero-icon-circle {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.20);
     width: 64px;
     height: 64px;
     border-radius: 50%;
@@ -47,7 +46,7 @@ body {
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 14px 0;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.20);
 }
 
 .hero-overlay p {
@@ -59,6 +58,17 @@ body {
     line-height: 1.6;
 }
 
+.last-visit-badge {
+    margin-top: 18px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: #ffffff;
+    display: inline-block;
+}
+
+/* STATS BAR */
 .stats-bar-wrapper {
     max-width: 1100px;
     margin: -50px auto 0 auto;
@@ -114,6 +124,7 @@ body {
     background: #e5e7eb;
 }
 
+/* MISSION SECTION */
 .mission-container {
     padding: 70px 24px 50px;
     max-width: 1100px;
@@ -144,8 +155,11 @@ body {
     margin: 0 auto 18px auto;
 }
 
-.mission-text:last-child { margin-bottom: 0; }
+.mission-text:last-child {
+    margin-bottom: 0;
+}
 
+/* TEAM SECTION */
 .team-section {
     padding: 60px 24px;
     max-width: 1100px;
@@ -168,9 +182,8 @@ body {
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 28px;
-    justify-items: horizontal;
 }
 
 .team-card {
@@ -178,9 +191,8 @@ body {
     border: 1px solid #e5e7eb;
     border-radius: 20px;
     overflow: hidden;
-    text-align: horizontal;
+    text-align: center;
     width: 100%;
-    max-width: 320px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
 }
@@ -266,6 +278,7 @@ body {
     transform: translateY(-2px);
 }
 
+/* CALL TO ACTION BANNER */
 .join-container {
     padding: 70px 24px;
     background: linear-gradient(135deg, #155DFC, #5D558A);
@@ -314,7 +327,7 @@ body {
 }
 
 .btn-primary:hover {
-    background: #f0f0f0;
+    background: #f0f4ff;
     transform: translateY(-2px);
 }
 
@@ -329,6 +342,7 @@ body {
     transform: translateY(-2px);
 }
 
+/* CORE VALUES SECTION */
 .values-section {
     padding: 60px 24px 80px;
     max-width: 1100px;
@@ -345,8 +359,10 @@ body {
 
 .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
 }
 
 .value-card {
@@ -391,13 +407,19 @@ body {
     margin: 0;
 }
 
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .hero-overlay h1 { font-size: 2rem; }
     .hero-overlay p { font-size: 0.95rem; }
     .mission-box { padding: 32px 20px; }
     .stats-bar { gap: 20px; }
     .stat-divider { display: none; }
-    .team-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
     .team-img-wrapper { height: 200px; }
     .team-bio { min-height: auto; }
     .join-box h2 { font-size: 1.6rem; }
@@ -410,5 +432,4 @@ body {
     .team-grid { grid-template-columns: 1fr; }
     .values-grid { grid-template-columns: 1fr; }
     .stats-bar-wrapper { margin-top: -30px; }
-    .team-card { max-width: 100%; }
 }
