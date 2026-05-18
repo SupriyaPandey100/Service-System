@@ -180,7 +180,7 @@ body {
     border: 1px solid #e5e7eb;
     border-radius: 20px;
     overflow: hidden;
-    text-align: center;
+    text-align: horizontal;
     width: 100%;
     max-width: 320px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
