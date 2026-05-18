@@ -1,12 +1,11 @@
 package com.HomeService.controller;
 
 import java.io.IOException;
-import java.util.List;
 
-import com.HomeService.model.BookingModel;
+import com.HomeService.dao.UserDAO;
+import com.HomeService.dao.BookingDAO;
+import com.HomeService.dao.ServiceDAO;
 import com.HomeService.model.UserModel;
-import com.HomeService.service.BookingService;
-import com.HomeService.service.UserService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,42 +19,52 @@ public class AdminDashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        UserModel admin = (UserModel) session.getAttribute("userSession");
 
-        if (admin == null || !"ADMIN".equals(admin.getRole())) {
+        // Check if user is logged in
+        if (session == null || session.getAttribute("userSession") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
+        // Check if user is ADMIN
+        UserModel user = (UserModel) session.getAttribute("userSession");
+        if (user == null || !"ADMIN".equalsIgnoreCase(user.getRole())) {
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
+        }
+
         try {
-            UserService userService = new UserService();
-            BookingService bookingService = new BookingService();
+            // Create DAO instances
+            ServiceDAO serviceDAO = new ServiceDAO();
+            UserDAO userDAO = new UserDAO();
+            BookingDAO bookingDAO = new BookingDAO();
 
-            /* Get statistics for dashboard */
-            int totalServices = 8;
-            int totalTechnicians = userService.getTotalTechniciansCount();
-            int totalBookings = bookingService.getTotalBookingsCount();
-            int pendingBookings = bookingService.getPendingBookingsCount();
+            // Get counts from database
+            int totalServices = serviceDAO.getTotalServicesCount();
+            int totalTechnicians = userDAO.getTotalTechniciansCount();
+            int totalBookings = bookingDAO.getTotalBookingsCount();
+            int pendingBookings = bookingDAO.getPendingBookingsCount();
 
-            /* Get recent bookings */
-            List<BookingModel> recentBookings = bookingService.getRecentBookings(5);
-
-            /* Set attributes for JSP */
+            // Set attributes for JSP
             request.setAttribute("totalServices", totalServices);
             request.setAttribute("totalTechnicians", totalTechnicians);
             request.setAttribute("totalBookings", totalBookings);
             request.setAttribute("pendingBookings", pendingBookings);
-            request.setAttribute("recentBookings", recentBookings);
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("error", "Error loading dashboard: " + e.getMessage());
+            // Set default values if error occurs
+            request.setAttribute("totalServices", 0);
+            request.setAttribute("totalTechnicians", 0);
+            request.setAttribute("totalBookings", 0);
+            request.setAttribute("pendingBookings", 0);
         }
 
-        request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp")
+               .forward(request, response);
     }
 }

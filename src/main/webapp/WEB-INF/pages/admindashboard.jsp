@@ -12,8 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admindashboard.css">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admindashboard.css">
    
     <style>
 
@@ -150,9 +149,7 @@
 
     </style>
 </head>
-
 <body>
-
 
 <nav class="navbar">
 
@@ -217,7 +214,7 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <i class="fa-solid fa-wrench"></i>
-                <h3>${totalUsers}</h3>
+                <h3>${totalServices}</h3>
                 <p>Total Services</p>
             </div>
 
