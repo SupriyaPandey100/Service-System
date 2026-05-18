@@ -8,36 +8,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/userdashboard.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/about.css">
 </head>
 <body>
 
+    <%-- FIX: check both loggedUser and userSession --%>
     <c:choose>
-        <c:when test="${not empty sessionScope.userSession}">
+        <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
             <%@ include file="header.jsp" %>
         </c:when>
         <c:otherwise>
             <%@ include file="header_guest.jsp" %>
         </c:otherwise>
     </c:choose>
-        
-    <!-- HERO BANNER -->
-    <div class="about-hero-banner" 
-         style="background-image: url('${pageContext.request.contextPath}/images/Aboutpage.jpg'); 
-                background-size: cover; 
-                background-position: center; 
-                background-repeat: no-repeat;
-                min-height: 450px;">
+
+    <%-- HERO BANNER --%>
+    <div class="about-hero-banner"
+         style="background-image: url('${pageContext.request.contextPath}/images/Aboutpage.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;">
         <div class="hero-overlay">
+            <div class="hero-icon-circle">
+                <i class="fas fa-wrench"></i>
+            </div>
             <h1>About ServiceHub</h1>
             <p>Your trusted platform for connecting with professional home service providers</p>
         </div>
     </div>
 
-    <!-- MISSION SECTION -->
+   
+
+    <%-- MISSION SECTION --%>
     <section class="mission-container">
         <div class="mission-box">
             <h2>Our Mission</h2>
@@ -47,26 +51,28 @@
                 most valuable asset, and you deserve the best care for it.
             </p>
             <p class="mission-text">
-                We constantly vet all our service providers to ensure they meet our high standards of 
-                professionalism, quality, and reliability. Our platform brings together skilled professionals 
+                We carefully vet all our service providers to ensure they meet our high standards of
+                professionalism, quality, and reliability. Our platform brings together skilled professionals
                 and homeowners, creating a seamless experience for all your home service needs.
             </p>
         </div>
     </section>
 
-    <!-- TEAM SECTION - Our Members -->
+    <%-- TEAM SECTION --%>
     <section class="team-section">
         <h2>Meet Our Team</h2>
         <p class="team-subtitle">The passionate people behind ServiceHub</p>
         <div class="team-grid">
-            <!-- Team Member 1 - Supriya Pandey -->
+
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/supriya.jpg.jpeg" alt="Supriya Pandey" class="team-img">
+                    <img src="${pageContext.request.contextPath}/images/supriya.jpg.jpeg"
+                         alt="Supriya Pandey" class="team-img"
+                         onerror="this.style.display='none'">
                 </div>
                 <div class="team-info">
                     <h3>Supriya Pandey</h3>
-                    <span class="team-role">Founder & CEO</span>
+                    <span class="team-role">Founder &amp; CEO</span>
                     <p class="team-bio">Visionary leader with 10+ years in home service industry. Passionate about connecting customers with quality professionals.</p>
                     <div class="team-social">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -75,10 +81,11 @@
                 </div>
             </div>
 
-            <!-- Team Member 2 - Sunibha Maskey -->
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/sunibha.jpg" alt="Sunibha Maskey" class="team-img">
+                    <img src="${pageContext.request.contextPath}/images/sunibha.jpg"
+                         alt="Sunibha Maskey" class="team-img"
+                         onerror="this.style.display='none'">
                 </div>
                 <div class="team-info">
                     <h3>Sunibha Maskey</h3>
@@ -91,10 +98,11 @@
                 </div>
             </div>
 
-            <!-- Team Member 3 - Nikita Bhatta -->
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/nikita.jpg" alt="Nikita Bhatta" class="team-img">
+                    <img src="${pageContext.request.contextPath}/images/nikita.jpg"
+                         alt="Nikita Bhatta" class="team-img"
+                         onerror="this.style.display='none'">
                 </div>
                 <div class="team-info">
                     <h3>Nikita Bhatta</h3>
@@ -107,10 +115,11 @@
                 </div>
             </div>
 
-            <!-- Team Member 4 - Mamta Poudel -->
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/ashika.jpg.jpeg" alt="Mamta Poudel" class="team-img">
+                    <img src="${pageContext.request.contextPath}/images/ashika.jpg.jpeg"
+                         alt="Mamta Poudel" class="team-img"
+                         onerror="this.style.display='none'">
                 </div>
                 <div class="team-info">
                     <h3>Mamta Poudel</h3>
@@ -123,31 +132,33 @@
                 </div>
             </div>
 
-      
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/pratikshya.jpeg" alt="Pratikshya Shrestha" class="team-img">
+                    <img src="${pageContext.request.contextPath}/images/pratikshya.jpeg"
+                         alt="Pratikshya Shrestha" class="team-img"
+                         onerror="this.style.display='none'">
                 </div>
                 <div class="team-info">
                     <h3>Pratikshya Shrestha</h3>
                     <span class="team-role">Head of Partnerships</span>
-                    <p class="team-bio">Builds strong relationships with service providers, ensuring they meet our high quality standards..</p>
+                    <p class="team-bio">Builds strong relationships with service providers, ensuring they meet our high quality standards.</p>
                     <div class="team-social">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- CALL TO ACTION BANNER -->
+    <%-- CALL TO ACTION BANNER --%>
     <section class="join-container">
         <div class="join-box">
             <h2>Join Thousands of Satisfied Customers</h2>
             <p>Experience the convenience of professional home services at your fingertips</p>
             <c:choose>
-                <c:when test="${not empty sessionScope.userSession}">
+                <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
                     <a href="${pageContext.request.contextPath}/services" class="btn-primary">
                         <i class="fas fa-th-large"></i> Browse Services
                     </a>
@@ -164,32 +175,35 @@
         </div>
     </section>
 
-    <!-- CORE VALUES SECTION -->
+    <%-- CORE VALUES SECTION --%>
     <section class="values-section">
         <h2>Our Core Values</h2>
         <div class="values-grid">
             <div class="value-card">
+                <div class="value-icon"><i class="fas fa-check-circle"></i></div>
                 <h3>Quality Service</h3>
                 <p>We ensure all our service providers deliver top-quality work with professional standards.</p>
             </div>
             <div class="value-card">
+                <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
                 <h3>Trust &amp; Safety</h3>
                 <p>All professionals are verified, background-checked, and insured for your peace of mind.</p>
             </div>
             <div class="value-card">
+                <div class="value-icon"><i class="fas fa-users"></i></div>
                 <h3>Customer First</h3>
-                <p>Your satisfaction is our priority. We're committed to providing excellent customer service.</p>
+                <p>Your satisfaction is our priority. We are committed to providing excellent customer service.</p>
             </div>
             <div class="value-card">
+                <div class="value-icon"><i class="fas fa-medal"></i></div>
                 <h3>Excellence</h3>
                 <p>We strive for excellence in every service, ensuring consistent quality and reliability.</p>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <c:choose>
-        <c:when test="${not empty sessionScope.userSession}">
+        <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
             <%@ include file="footer.jsp" %>
         </c:when>
         <c:otherwise>
