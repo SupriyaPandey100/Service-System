@@ -157,41 +157,6 @@ body {
     flex-grow: 1;
 }
 
-.card-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.84rem;
-    margin-bottom: 18px;
-    color: #6b7280;
-}
-
-.meta-rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.meta-rating .fas.fa-star {
-    color: #FACC15;
-}
-
-.meta-rating strong {
-    color: #111827;
-    font-weight: 800;
-}
-
-.meta-reviews {
-    color: #9ca3af;
-    font-weight: 400;
-}
-
-.meta-duration {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
 .card-footer {
     display: flex;
     justify-content: space-between;

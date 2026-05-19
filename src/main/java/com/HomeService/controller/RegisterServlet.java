@@ -26,7 +26,6 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String confirm = request.getParameter("confirmPassword");
 
-        // 1. Password Validation
         if (password == null || !password.equals(confirm)) {
             request.setAttribute("error", "Passwords do not match!");
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
@@ -35,14 +34,14 @@ public class RegisterServlet extends HttpServlet {
 
         UserDAO dao = new UserDAO();
         try {
-            // 2. Pro-Tip: Check if User already exists to avoid SQL errors
+          
             if (dao.getUserByEmail(email) != null) {
                 request.setAttribute("error", "An account with this email already exists.");
                 request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
                 return;
             }
 
-            // 3. Populate Model
+        
             UserModel newUser = new UserModel();
             newUser.setFullName(name);
             newUser.setEmail(email);
@@ -51,15 +50,14 @@ public class RegisterServlet extends HttpServlet {
             newUser.setRole("customer");
             newUser.setStatus("ACTIVE");
 
-            // 4. Save to Database
+        
             dao.insertUser(newUser);
-            
-            // Redirect to login with a success message
+         
             response.sendRedirect(request.getContextPath() + "/login?msg=RegistrationSuccess");
             
         } catch (SQLException e) {
             e.printStackTrace(); 
-            // TEMPORARY FIX: Show the exact error on the screen
+            
             request.setAttribute("error", "DB Error: " + e.getMessage());
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
         }

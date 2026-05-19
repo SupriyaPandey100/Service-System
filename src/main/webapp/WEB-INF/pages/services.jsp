@@ -79,18 +79,6 @@
                             <span class="card-tag"><c:out value="${service.category}"/></span>
                             <h3><c:out value="${service.name}"/></h3>
                             <p class="desc"><c:out value="${service.description}"/></p>
-
-                            <div class="card-meta">
-                                <span class="meta-rating">
-                                    <i class="fas fa-star"></i>
-                                    <strong><c:out value="${service.rating != 0.0 ? service.rating : 'New'}"/></strong>
-                                    <span class="meta-reviews">(<c:out value="${service.reviews}"/>)</span>
-                                </span>
-                                <span class="meta-duration">
-                                    <i class="far fa-clock"></i>
-                                    <c:out value="${service.duration}"/>
-                                </span>
-                            </div>
                         </div>
 
                         <div class="card-footer">

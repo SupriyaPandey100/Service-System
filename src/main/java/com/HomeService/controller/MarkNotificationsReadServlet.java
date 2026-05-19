@@ -27,26 +27,23 @@ public class MarkNotificationsReadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // 1. Verify the user is actually logged in
         HttpSession session = request.getSession(false);
         
         if (session != null && session.getAttribute("loggedUser") != null) {
             UserModel user = (UserModel) session.getAttribute("loggedUser");
             
-            // 2. Mark all notifications as read in the database
             NotificationDAO notifDao = new NotificationDAO();
             notifDao.markAllAsRead(user.getId());
         }
         
-        // 3. Instantly redirect them back to the dashboard
-        // The page will reload and the notification list will be empty!
+      
         response.sendRedirect(request.getContextPath() + "/dashboard");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        // Route any POST requests to the GET logic just in case
+       
         doGet(request, response);
     }
 }

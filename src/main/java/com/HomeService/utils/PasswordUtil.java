@@ -2,10 +2,7 @@ package com.HomeService.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-/**
- * Security utility for hashing and verifying passwords.
- * Fulfills the requirement for secure credential storage.
- */
+
 public class PasswordUtil {
     private static final int WORK_FACTOR = 10;
 

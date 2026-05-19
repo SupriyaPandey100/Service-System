@@ -14,7 +14,6 @@
 </head>
 <body>
 
-    <%-- HEADER: checks both session keys so it always loads correctly --%>
     <c:choose>
         <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
             <%@ include file="header.jsp" %>
@@ -24,7 +23,6 @@
         </c:otherwise>
     </c:choose>
 
-    <%-- HERO BANNER --%>
     <div class="about-hero-banner"
          style="background-image: url('${pageContext.request.contextPath}/images/service-hub.png');
                 background-size: cover;
@@ -36,17 +34,9 @@
             </div>
             <h1>About ServiceHub</h1>
             <p>Your trusted platform for connecting with professional home service providers</p>
-            <c:if test="${not empty lastVisit}">
-                <div class="last-visit-badge">
-                    <i class="far fa-clock"></i> Last visited: <c:out value="${lastVisit}"/>
-                </div>
-            </c:if>
         </div>
     </div>
 
-   
-
-    <%-- MISSION SECTION --%>
     <section class="mission-container">
         <div class="mission-box">
             <h2>Our Mission</h2>
@@ -63,7 +53,6 @@
         </div>
     </section>
 
-    <%-- TEAM SECTION --%>
     <section class="team-section">
         <h2>Meet Our Team</h2>
         <p class="team-subtitle">The passionate people behind ServiceHub</p>
@@ -80,15 +69,19 @@
                     <span class="team-role">Founder &amp; CEO</span>
                     <p class="team-bio">Visionary leader with 10+ years in home service industry. Passionate about connecting customers with quality professionals.</p>
                     <div class="team-social">
-                        <a href="#"><i class="fab fa-facebook-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://np.linkedin.com/in/supriya-pandey-772188246" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1EDRL2BbBs/?mibextid=wwXIfr" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/sunibha.jpg"
+                    <img src="${pageContext.request.contextPath}/images/sunibha.jpeg"
                          alt="Sunibha Maskey" class="team-img"
                          onerror="this.style.display='none'">
                 </div>
@@ -97,15 +90,19 @@
                     <span class="team-role">Head of Operations</span>
                     <p class="team-bio">Ensures smooth day-to-day operations and maintains high quality standards across all service providers.</p>
                     <div class="team-social">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="http://www.linkedin.com/in/sunibha-maskey-7671a1410" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.instagram.com/sunibha.maskey?igsh=NDR3ZWZ1MjFtNHR0&utm_source=qr" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <div class="team-card">
                 <div class="team-img-wrapper">
-                    <img src="${pageContext.request.contextPath}/images/nikita.jpg"
+                    <img src="${pageContext.request.contextPath}/images/nikita.jpeg"
                          alt="Nikita Bhatta" class="team-img"
                          onerror="this.style.display='none'">
                 </div>
@@ -114,8 +111,12 @@
                     <span class="team-role">Tech Lead</span>
                     <p class="team-bio">Architect of our platform, ensuring seamless booking experience and secure transactions for all users.</p>
                     <div class="team-social">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/nikita-bhatta-682241352/" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1CqVaFY7C9/?mibextid=wwXIfr" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -131,8 +132,12 @@
                     <span class="team-role">Customer Success Lead</span>
                     <p class="team-bio">Dedicated to providing exceptional support and ensuring every customer has a great experience.</p>
                     <div class="team-social">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/mamta-poudel-913127341?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1RLktpT2LA/?mibextid=wwXIfr" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -148,8 +153,12 @@
                     <span class="team-role">Head of Partnerships</span>
                     <p class="team-bio">Builds strong relationships with service providers, ensuring they meet our high quality standards.</p>
                     <div class="team-social">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/pratikshya-shrestha-996519362" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1CuLCmM2Wy/?mibextid=wwXIfr" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -157,7 +166,6 @@
         </div>
     </section>
 
-    <%-- CALL TO ACTION BANNER --%>
     <section class="join-container">
         <div class="join-box">
             <h2>Join Thousands of Satisfied Customers</h2>
@@ -180,7 +188,6 @@
         </div>
     </section>
 
-    <%-- CORE VALUES SECTION --%>
     <section class="values-section">
         <h2>Our Core Values</h2>
         <div class="values-grid">
@@ -215,7 +222,6 @@
         </div>
     </section>
 
-    <%-- FOOTER --%>
     <c:choose>
         <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
             <%@ include file="footer.jsp" %>
