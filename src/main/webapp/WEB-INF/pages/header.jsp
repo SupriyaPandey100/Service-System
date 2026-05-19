@@ -63,7 +63,18 @@
             </div>
             
             <div class="user-dropdown">
-                <div class="user-avatar"><i class="fas fa-user"></i></div>
+<div class="user-avatar">
+    <c:choose>
+        <c:when test="${not empty sessionScope.userSession.profileImage}">
+            <img src="${pageContext.request.contextPath}/${sessionScope.userSession.profileImage}"
+                 alt="Profile Image"
+                 style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+        </c:when>
+        <c:otherwise>
+            <i class="fas fa-user"></i>
+        </c:otherwise>
+    </c:choose>
+</div>
                 <span class="user-name">
                     <c:choose>
                         <c:when test="${not empty sessionScope.loggedUser}">
