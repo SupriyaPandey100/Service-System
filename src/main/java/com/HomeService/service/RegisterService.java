@@ -2,7 +2,7 @@ package com.HomeService.service;
 
 import com.HomeService.dao.UserDAO;
 import com.HomeService.model.UserModel;
-import com.HomeService.utils.PasswordUtil;
+import com.HomeService.utils.PasswordUtils;
 
 public class RegisterService {
     private UserDAO userDAO;
@@ -18,12 +18,12 @@ public class RegisterService {
         }
 
         // 2. Hash the password for security
-        String hashedPassword = PasswordUtil.getHashPassword(user.getPassword());
+        String hashedPassword = PasswordUtils.hashPassword(user.getPassword());
         user.setPassword(hashedPassword);
 
         // 3. Assign defaults
         if (user.getRole() == null) {
-            user.setRole("USER"); 
+            user.setRole("USER");
         }
         user.setStatus("ACTIVE"); // Set to PENDING if admin approval is needed
 
