@@ -6,7 +6,6 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* HERO BANNER */
 .about-hero-banner {
     position: relative;
     width: 100%;
@@ -58,17 +57,6 @@ body {
     line-height: 1.6;
 }
 
-.last-visit-badge {
-    margin-top: 18px;
-    padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    color: #ffffff;
-    display: inline-block;
-}
-
-/* STATS BAR */
 .stats-bar-wrapper {
     max-width: 1100px;
     margin: -50px auto 0 auto;
@@ -124,7 +112,6 @@ body {
     background: #e5e7eb;
 }
 
-/* MISSION SECTION */
 .mission-container {
     padding: 70px 24px 50px;
     max-width: 1100px;
@@ -159,7 +146,6 @@ body {
     margin-bottom: 0;
 }
 
-/* TEAM SECTION */
 .team-section {
     padding: 60px 24px;
     max-width: 1100px;
@@ -278,13 +264,11 @@ body {
     transform: translateY(-2px);
 }
 
-/* CALL TO ACTION BANNER */
 .join-container {
     padding: 70px 24px;
-    background: linear-gradient(135deg, #155DFC, #5D558A);
+    background: linear-gradient(135deg, #6B5B9E, #9B6B9E, #C47AAE);
     margin: 20px 0;
 }
-
 .join-box {
     max-width: 860px;
     margin: 0 auto;
@@ -342,7 +326,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* CORE VALUES SECTION */
 .values-section {
     padding: 60px 24px 80px;
     max-width: 1100px;
@@ -407,7 +390,6 @@ body {
     margin: 0;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
