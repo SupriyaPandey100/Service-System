@@ -1,5 +1,11 @@
 package com.HomeService.controller;
 
+import java.io.IOException;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -7,10 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.time.Year;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Controller for the Services Page (MVC Architecture).
@@ -24,8 +26,8 @@ public class ServiceServlet extends HttpServlet {
         private String name, category, duration, description, imageUrl;
         private int price, reviews;
         private double rating;
-        
-        public Service(String name, String category, int price, double rating, 
+
+        public Service(String name, String category, int price, double rating,
                       int reviews, String duration, String description, String imageUrl) {
             this.name = name;
             this.category = category;
@@ -36,7 +38,7 @@ public class ServiceServlet extends HttpServlet {
             this.description = description;
             this.imageUrl = imageUrl;
         }
-        
+
         // Getters required for JSP Expression Language (EL)
         public String getName() { return name; }
         public String getCategory() { return category; }
@@ -47,7 +49,7 @@ public class ServiceServlet extends HttpServlet {
         public String getDescription() { return description; }
         public String getImageUrl() { return imageUrl; }
     }
-    
+
     // Simulating a Database Access Object (DAO) fetch
     private List<Service> getAllServices() {
         List<Service> services = new ArrayList<>();
@@ -60,15 +62,15 @@ public class ServiceServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // 1. SESSION MANAGEMENT & SYNCHRONIZATION
         HttpSession session = request.getSession(false);
         if (session != null) {
             Object loggedUser = session.getAttribute("loggedUser");
             Object userSession = session.getAttribute("userSession");
-            
+
             // Sync session keys so headers can read the user profile seamlessly
             if (loggedUser != null && userSession == null) {
                 session.setAttribute("userSession", loggedUser);
@@ -76,23 +78,23 @@ public class ServiceServlet extends HttpServlet {
                 session.setAttribute("loggedUser", userSession);
             }
         }
-        
+
         // 2. FETCH & FILTER DYNAMIC DATA
         String categoryFilter = request.getParameter("category");
         String searchQuery = request.getParameter("search");
         List<Service> allServices = getAllServices();
         List<Service> filteredServices = allServices;
-        
+
         if (categoryFilter != null && !categoryFilter.isEmpty() && !categoryFilter.equals("all")) {
             filteredServices = allServices.stream()
                 .filter(service -> service.getCategory().equalsIgnoreCase(categoryFilter))
                 .collect(Collectors.toList());
         }
-        
+
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
             String searchLower = searchQuery.toLowerCase().trim();
             filteredServices = filteredServices.stream()
-                .filter(service -> 
+                .filter(service ->
                     service.getName().toLowerCase().contains(searchLower) ||
                     service.getDescription().toLowerCase().contains(searchLower) ||
                     service.getCategory().toLowerCase().contains(searchLower))
@@ -115,10 +117,10 @@ public class ServiceServlet extends HttpServlet {
                 }
             }
         }
-        
+
         if (categoryFilter != null && !categoryFilter.equals("all")) {
             Cookie categoryCookie = new Cookie("lastSearchedCategory", categoryFilter);
-            categoryCookie.setMaxAge(60 * 60 * 24 * 7); 
+            categoryCookie.setMaxAge(60 * 60 * 24 * 7);
             categoryCookie.setPath("/");
             response.addCookie(categoryCookie);
         }
@@ -129,13 +131,13 @@ public class ServiceServlet extends HttpServlet {
         request.setAttribute("selectedCategory", categoryFilter != null ? categoryFilter : "all");
         request.setAttribute("searchQuery", searchQuery != null ? searchQuery : "");
         request.setAttribute("suggestedCategory", lastCategory);
-        request.setAttribute("currentYear", Year.now().getValue()); 
-        
+        request.setAttribute("currentYear", Year.now().getValue());
+
         request.getRequestDispatcher("/WEB-INF/pages/services.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }

@@ -1,25 +1,31 @@
 package com.HomeService.controller;
 
-import com.HomeService.dao.UserDAO;
-import com.HomeService.model.UserModel;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
+
+import com.HomeService.dao.UserDAO;
+import com.HomeService.model.UserModel;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String name = request.getParameter("fullName");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
@@ -46,19 +52,19 @@ public class RegisterServlet extends HttpServlet {
             UserModel newUser = new UserModel();
             newUser.setFullName(name);
             newUser.setEmail(email);
-            newUser.setPhone(phone); 
+            newUser.setPhone(phone);
             newUser.setPassword(password);
-            newUser.setRole("customer");
+            newUser.setRole("USER");
             newUser.setStatus("ACTIVE");
 
             // 4. Save to Database
             dao.insertUser(newUser);
-            
+
             // Redirect to login with a success message
             response.sendRedirect(request.getContextPath() + "/login?msg=RegistrationSuccess");
-            
+
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
             // TEMPORARY FIX: Show the exact error on the screen
             request.setAttribute("error", "DB Error: " + e.getMessage());
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);

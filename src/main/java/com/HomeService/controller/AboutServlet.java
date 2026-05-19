@@ -1,6 +1,10 @@
 package com.HomeService.controller;
 
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -8,9 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Controller for the About Page.
@@ -21,16 +22,16 @@ public class AboutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // ==========================================
         // 1. SESSION MANAGEMENT
         // ==========================================
         // Retrieve the current session, but do not create a new one if it doesn't exist
         HttpSession session = request.getSession(false);
         boolean isLoggedIn = (session != null && session.getAttribute("userSession") != null);
-        
+
         // Pass a simple flag to the JSP using EL
         request.setAttribute("isLoggedIn", isLoggedIn);
 
@@ -40,7 +41,7 @@ public class AboutServlet extends HttpServlet {
         // Look for a specific cookie that tracks the last time they visited the About page
         Cookie[] cookies = request.getCookies();
         String lastVisitDate = "This is your first time visiting our About page!";
-        
+
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("lastAboutVisit".equals(cookie.getName())) {
@@ -50,7 +51,7 @@ public class AboutServlet extends HttpServlet {
                 }
             }
         }
-        
+
         // Send the cookie message to the JSP
         request.setAttribute("cookieMessage", lastVisitDate);
 
