@@ -159,6 +159,8 @@
             border-radius:18px;
             border:1px solid var(--line);
             padding:1.4rem;
+            display:flex;
+            flex-direction:column;
         }
 
         .info-grid{
@@ -195,7 +197,7 @@
             display:grid;
             grid-template-columns:minmax(0, 1.1fr) minmax(320px, 0.9fr);
             gap:1.4rem;
-            align-items:start;
+            align-items:stretch;
         }
 
         .panel{
@@ -204,6 +206,9 @@
             box-shadow:var(--shadow);
             border:1px solid rgba(229,231,235,0.9);
             min-width:0;
+            height:100%;
+            display:flex;
+            flex-direction:column;
         }
 
         .contact-card{
@@ -311,28 +316,31 @@
 
         .side-card{
             padding:1.6rem;
+            height:100%;
+            justify-content:flex-start;
         }
 
-        .contact-list{
+        .service-grid{
             display:grid;
             gap:0.85rem;
             margin-top:1rem;
+            flex:1;
         }
 
-        .contact-item{
+        .service-item{
             padding:1rem;
             border-radius:14px;
             background:#fafaff;
             border:1px solid var(--line);
         }
 
-        .contact-item h4{
+        .service-item h4{
             font-size:0.95rem;
             margin-bottom:0.25rem;
             color:#111827;
         }
 
-        .contact-item p{
+        .service-item p{
             font-size:0.9rem;
             line-height:1.65;
             color:var(--muted);
@@ -452,13 +460,12 @@
         <div class="hero-left">
             <h1>Contact ServiceHub</h1>
             <p>
-                Need a cleaner, plumber, or maintenance service? Send us your inquiry and our team will
-                respond as soon as possible.
+                Need help with any home service? Send us your inquiry and our team will respond as soon as possible.
             </p>
 
             <div class="quick-points">
                 <div class="quick-item">Fast response for service booking and support</div>
-                <div class="quick-item">Professional help for home cleaning, plumbing, and maintenance</div>
+                <div class="quick-item">Professional help for cleaning, plumbing, electrical and more</div>
             </div>
         </div>
 
@@ -538,24 +545,39 @@
 
         <aside class="panel side-card">
             <div class="section-title">
-                <h2>Why contact us?</h2>
-                <p>We help users with service bookings, support, and general inquiries.</p>
+                <h2>All Service Categories</h2>
+                <p>These are the main services your ServiceHub project offers.</p>
             </div>
 
-            <div class="contact-list">
-                <div class="contact-item">
-                    <h4>Home Cleaning</h4>
-                    <p>Book trusted cleaning services for your home or office.</p>
+            <div class="service-grid">
+                <div class="service-item">
+                    <h4>Plumbing Repair</h4>
+                    <p>Professional plumbing help for leaks, clogs, and pipes.</p>
                 </div>
 
-                <div class="contact-item">
-                    <h4>Plumbing Support</h4>
-                    <p>Get help for leaks, pipe repair, and other plumbing needs.</p>
+                <div class="service-item">
+                    <h4>Electrical Installation</h4>
+                    <p>Licensed electricians for wiring and installations.</p>
                 </div>
 
-                <div class="contact-item">
-                    <h4>Maintenance Services</h4>
-                    <p>Request repair and maintenance support for everyday issues.</p>
+                <div class="service-item">
+                    <h4>House Painting</h4>
+                    <p>Interior and exterior painting with quality finishes.</p>
+                </div>
+
+                <div class="service-item">
+                    <h4>Deep Cleaning</h4>
+                    <p>Comprehensive deep cleaning for the entire home.</p>
+                </div>
+
+                <div class="service-item">
+                    <h4>Pest Control</h4>
+                    <p>Safe pest control and home sanitization services.</p>
+                </div>
+
+                <div class="service-item">
+                    <h4>AC Repair</h4>
+                    <p>Cooling system maintenance and repair support.</p>
                 </div>
             </div>
         </aside>
