@@ -1,8 +1,9 @@
 package com.HomeService.service;
 
+import java.sql.SQLException;
 // --- CRITICAL IMPORTS TO FIX THE ERRORS ---
 import java.util.List;
-import java.sql.SQLException;
+
 import com.HomeService.dao.UserDAO;
 import com.HomeService.model.UserModel;
 
@@ -37,7 +38,7 @@ public class ListService {
     public void updateUserStatus(int userId, String action) throws SQLException {
         // Business Rule: Translate UI actions into database-friendly statuses
         String newStatus = "APPROVE".equalsIgnoreCase(action) ? "APPROVED" : "REJECTED";
-        
+
         // Pass the processed status down to the DAO layer
         userDAO.updateUserStatus(userId, newStatus);
     }

@@ -9,7 +9,7 @@
            
   Architecture & Logic:
   - Adheres to MVC pattern by using JSTL and Expression Language (EL).
-  - Replaces inline Java date scriptlets with JSTL <fmt:formatDate> tag.
+  -Replaces inline Java date scriptlets with JSTL  <fmt:formatDate> tag.
   - Integrates modular UI components (/components/) for consistent global layout.
   ==============================================================================
 */ %>

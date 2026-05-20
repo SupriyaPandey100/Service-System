@@ -7,6 +7,11 @@
 .hero {
     background: linear-gradient(rgba(73, 48, 30, 0.75), rgba(44, 54, 43, 0.85)), 
                 url('https://images.unsplash.com/photo-1581578731548-c64695cc6958?q=80&w=2070') center/cover;
+    
+    /* SCROLL FIXES APPLIED HERE */
+    background-attachment: scroll !important; 
+    position: relative !important;
+    
     height: calc(100vh - 76px);
     display: flex;
     align-items: center;
@@ -69,7 +74,7 @@
 .card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
-    border-color: rgba(212, 175, 55, 0.3); /* Subtle gold border on hover */
+    border-color: rgba(212, 175, 55, 0.3); 
 }
 
 .card-img {

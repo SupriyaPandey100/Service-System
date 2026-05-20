@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,16 +16,10 @@
 </head>
 <body>
 
-    <c:choose>
-        <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
-            <%@ include file="header.jsp" %>
-        </c:when>
-        <c:otherwise>
-            <%@ include file="header_guest.jsp" %>
-        </c:otherwise>
-    </c:choose>
+    <jsp:include page="/components/header.jsp" />
 
     <main class="container" style="padding-top: 40px; min-height: 70vh;">
+        
         <div class="catalog-header" style="text-align: center; margin-bottom: 40px;">
             <h1 style="font-size: 32px; color: var(--text-main); margin-bottom: 8px; font-weight: 800;">Our Services</h1>
             <p style="color: var(--text-sub); margin-bottom: 24px;">Browse through our wide range of professional home services</p>
@@ -42,8 +37,9 @@
         </div>
 
         <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding-bottom: 60px;">
+            
             <c:forEach var="service" items="${serviceList}">
-                <div class="service-card" style="background: white; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; min-height: 440px;">
+                <div class="service-card" style="background: white; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; min-height: 400px;">
                     
                     <div class="card-img-wrapper" style="height: 200px; background-image: url('${pageContext.request.contextPath}/${service.imageUrl}'); background-size: cover; background-position: center; background-color: #F3F4F6;"></div>
                     
@@ -55,47 +51,59 @@
                             <h3 style="margin: 12px 0; font-size: 18px; color: var(--text-main); font-weight: 800;">
                                 <c:out value="${service.name}"/>
                             </h3>
-                            <p class="desc" style="color: var(--text-sub); font-size: 14px; margin-bottom: 16px; line-height: 1.5; min-height: 42px;">
+                            <p class="desc" style="color: var(--text-sub); font-size: 14px; margin-bottom: 24px; line-height: 1.5; min-height: 42px;">
                                 <c:out value="${service.description}"/>
                             </p>
-                            
-                            <div class="card-meta" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 13px;">
-                                <span class="meta-rating" style="color: #FACC15;">
-                                    <i class="fas fa-star"></i> <strong><c:out value="${service.rating != 0.0 ? service.rating : 'New'}"/></strong> 
-                                    <span style="color: var(--text-sub); font-weight: 400;">(<c:out value="${service.reviews}"/>)</span>
-                                </span>
-                                <span style="color: var(--text-sub);"><i class="far fa-clock"></i> <c:out value="${service.duration}"/></span>
-                            </div>
                         </div>
                         
                         <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: auto;">
-                            <div class="price-box">
-                                <span class="price-label" style="display: block; font-size: 11px; color: var(--text-sub); text-align: left;">Starting at</span>
-                                <span class="price-amount" style="font-weight: 700; color: var(--primary-color); font-size: 16px;">
-                                    NPR <c:out value="${service.price}"/>
-                                </span>
+                            
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div class="price-box">
+                                    <span class="price-label" style="display: block; font-size: 11px; color: var(--text-sub); text-align: left;">Starting at</span>
+                                    <span class="price-amount" style="font-weight: 700; color: var(--primary-color); font-size: 16px;">
+                                        NPR <c:out value="${service.price}"/>
+                                    </span>
+                                </div>
+                                
+                                <c:if test="${not empty sessionScope.loggedUser}">
+                                    <a href="${pageContext.request.contextPath}/wishlist?action=add&id=${service.id}" 
+                                       title="Save for later"
+                                       style="color: #9ca3af; font-size: 20px; text-decoration: none; transition: color 0.2s; margin-top: 6px;"
+                                       onmouseover="this.style.color='#7C3AED'" 
+                                       onmouseout="this.style.color='#9ca3af'">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </c:if>
                             </div>
                             
-                            <a href="${pageContext.request.contextPath}/book?serviceName=${service.name}&price=${service.price}" 
-                               class="btn btn-primary" 
-                               style="padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; background-color: #155DFC; color: white; border-radius: 8px; display: inline-block;">
-                                Book Now <i class="fas fa-arrow-right" style="margin-left: 4px; font-size: 11px;"></i>
-                            </a>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.loggedUser}">
+                                    <a href="${pageContext.request.contextPath}/book?serviceName=${service.name}&price=${service.price}" 
+                                       class="btn btn-primary" 
+                                       style="padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; background-color: #155DFC; color: white; border-radius: 8px; display: inline-block;">
+                                        Book Now <i class="fas fa-arrow-right" style="margin-left: 4px; font-size: 11px;"></i>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/login" 
+                                       class="btn btn-primary" 
+                                       style="padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; background-color: #155DFC; color: white; border-radius: 8px; display: inline-block;">
+                                        <i class="fas fa-lock" style="margin-right: 4px;"></i> Login
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
+                            
                         </div>
+                        
                     </div>
                 </div>
             </c:forEach>
+            
         </div>
     </main>
 
-    <c:choose>
-        <c:when test="${not empty sessionScope.loggedUser or not empty sessionScope.userSession}">
-            <%@ include file="footer.jsp" %>
-        </c:when>
-        <c:otherwise>
-            <%@ include file="footer_guest.jsp" %>
-        </c:otherwise>
-    </c:choose>
+    <jsp:include page="/components/footer.jsp" />
 
 </body>
 </html>

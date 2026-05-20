@@ -1,233 +1,441 @@
 @charset "UTF-8";
 
-/* ==========================================================================
-   about.css - Figma Matched (Pure White Body, Purple Accents, Blue Button)
-   ========================================================================== */
-
-/* PURE WHITE BODY */
 body {
-    background-color: #ffffff;
-    color: #111827;
+    background-color: #f9fafb;
     margin: 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* SPECIFIC CLASS SELECTOR TO PREVENT CONFLICTS WITH GENERAL HTML TAGS */
 .about-hero-banner {
-    height: 380px;  /* Optimized height context to prevent layout stacking */
-    background: url("../images/Aboutpage.jpg") center/cover no-repeat;
-    background-color: #5D558A; /* Figma Theme Fallback Background Color */
+    position: relative;
+    width: 100%;
+    min-height: 420px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    width: 100%;
+    text-align: center;
+    background-color: #5D558A;
+    overflow: hidden;
+    isolation: isolate;
+    z-index: 0;
+    margin-top: 0;
 }
 
 .hero-overlay {
-    text-align: center;
-    color: #ffffff;
-    background: rgba(45, 38, 75, 0.55); /* Deep rich overlay highlight tint */
+    background: rgba(0, 0, 0, 0.40);
     width: 100%;
-    height: 100%;
+    min-height: 420px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
+    padding: 50px 20px;
+    position: relative;
+    z-index: 1;
 }
 
-.hero-icon {
-    background: rgba(255, 255, 255, 0.25);
-    width: 60px;
-    height: 60px;
+.hero-icon-circle {
+    background: rgba(255, 255, 255, 0.20);
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 16px;
     font-size: 1.6rem;
-}
-
-.about-hero-banner h1 {
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin: 0 0 10px 0;
     color: #ffffff;
+    margin-bottom: 20px;
 }
 
-.about-hero-banner p {
+.hero-overlay h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.20);
+}
+
+.hero-overlay p {
     font-size: 1.1rem;
+    color: #ffffff;
+    max-width: 580px;
+    margin: 0 auto;
     opacity: 0.95;
-    margin: 0;
+    line-height: 1.6;
 }
 
-/* MISSION BOX CONTENT WRAPPER */
+.stats-bar-wrapper {
+    max-width: 1100px;
+    margin: -50px auto 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+}
+
+.stats-bar {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 28px 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #155DFC;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.stat-label {
+    font-size: 0.82rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.stat-label i {
+    margin-right: 4px;
+    color: #5D558A;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 44px;
+    background: #e5e7eb;
+}
+
 .mission-container {
-    padding: 0 5%;
-    max-width: 1000px;
+    padding: 70px 24px 50px;
+    max-width: 1100px;
     margin: 0 auto;
     position: relative;
-    z-index: 20; /* Safely elevates the layout pane layer higher */
+    z-index: 2;
+    background: #f9fafb;
 }
 
 .mission-box {
     background: #ffffff;
-    padding: 45px 50px;
-    border-radius: 16px;
-    margin-top: -60px; /* Moves up cleanly to overlap without consuming the title view */
-    position: relative;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08); 
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 48px 44px;
     text-align: center;
-    border: 1px solid #f3f4f6;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
 }
 
-/* Figma Purple Accent Text Header */
 .mission-box h2 {
-    color: #5D558A; 
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 800;
-    margin: 0 0 20px 0;
+    color: #111827;
+    margin-bottom: 24px;
 }
 
-.mission-box p {
-    color: #4b5563; 
+.mission-text {
+    font-size: 1rem;
     line-height: 1.8;
-    font-size: 1.05rem;
-    margin-bottom: 20px;
+    color: #4b5563;
+    max-width: 820px;
+    margin: 0 auto 18px auto;
 }
 
-.mission-box p:last-child {
+.mission-text:last-child {
     margin-bottom: 0;
 }
 
-/* JOIN BANNER CONTAINER MODULE */
-.join-container {
-    padding: 60px 5% 20px;
-    max-width: 1000px;
+.team-section {
+    padding: 60px 24px;
+    max-width: 1100px;
     margin: 0 auto;
+    text-align: center;
+}
+
+.team-section h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.team-subtitle {
+    color: #6b7280;
+    font-size: 1rem;
+    margin-bottom: 44px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.team-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+.team-img-wrapper {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background-color: #f3f4f6;
+}
+
+.team-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.team-card:hover .team-img {
+    transform: scale(1.05);
+}
+
+.team-info {
+    padding: 20px 18px 24px;
+}
+
+.team-info h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 8px 0;
+}
+
+.team-role {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #155DFC;
+    background: #eef2ff;
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+
+.team-bio {
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: #6b7280;
+    margin-bottom: 16px;
+    min-height: 60px;
+}
+
+.team-social {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.team-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    color: #4b5563;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.team-social a:hover {
+    background: #155DFC;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.join-container {
+    padding: 70px 24px;
+    background: linear-gradient(135deg, #6B5B9E, #9B6B9E, #C47AAE);
+    margin: 20px 0;
 }
 
 .join-box {
-    background-color: #5D558A; /* Figma Purple Global Palette Setting */
-    color: #ffffff;
-    padding: 50px 40px;
-    border-radius: 12px;
+    max-width: 860px;
+    margin: 0 auto;
     text-align: center;
-    box-shadow: 0 8px 25px rgba(93, 85, 138, 0.15);
+    color: #ffffff;
 }
 
 .join-box h2 {
     font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    color: #ffffff;
 }
 
 .join-box p {
     font-size: 1.05rem;
-    opacity: 0.9;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    line-height: 1.6;
 }
 
-/* CALL TO ACTION BUTTON SELECTORS */
-.btn-blue {
-    background-color: #155DFC; /* Figma Action Blue Brand Color */
-    color: #ffffff;
-    border: none;
-    padding: 14px 35px;
+.btn-primary,
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
     border-radius: 8px;
     font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
+    font-size: 0.95rem;
     text-decoration: none;
-    display: inline-block;
-    transition: all 0.25s ease-in-out;
+    transition: all 0.2s ease;
+    margin: 0 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.btn-blue:hover {
-    background-color: #0d4bc7;
+.btn-primary {
+    background: #ffffff;
+    color: #155DFC;
+}
+
+.btn-primary:hover {
+    background: #f0f4ff;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(21, 93, 252, 0.3);
 }
 
-/* GRID LAYOUT SECTION */
+.btn-outline {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
 .values-section {
-    padding: 60px 5% 80px;
-    max-width: 1200px;
+    padding: 60px 24px 80px;
+    max-width: 1100px;
     margin: 0 auto;
     text-align: center;
 }
 
-.section-title {
-    margin-bottom: 45px;
-    font-size: 2.2rem;
+.values-section h2 {
+    font-size: 2rem;
     font-weight: 800;
     color: #111827;
+    margin-bottom: 40px;
 }
 
 .values-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    max-width: 1000px;
+    max-width: 860px;
     margin: 0 auto;
 }
 
 .value-card {
     background: #ffffff;
-    padding: 35px 30px;
-    border-radius: 12px;
-    text-align: left;
-    border: 1px solid #e5e7eb; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .value-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-    border-color: #d1d5db;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
 }
 
-.card-icon {
-    background: #f3f4f6; 
-    width: 48px;
-    height: 48px;
+.value-icon {
+    width: 52px;
+    height: 52px;
+    background: #eef2ff;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    margin-bottom: 16px;
-    color: #5D558A; 
-    font-size: 1.25rem;
+    margin: 0 auto 16px auto;
+    font-size: 1.3rem;
+    color: #5D558A;
 }
 
 .value-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 800;
-    color: #111827;
-    margin: 0 0 10px 0;
+    color: #155DFC;
+    margin-bottom: 12px;
 }
 
 .value-card p {
-    color: #4b5563;
-    line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #6b7280;
     margin: 0;
 }
 
-/* RESPONSIVE LAYOUT CONSTRAINTS */
+/* --- MOBILE RESPONSIVENESS --- */
+
+@media (max-width: 900px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .values-grid {
-        grid-template-columns: 1fr;
+    .hero-overlay h1 { font-size: 2rem; }
+    .hero-overlay p { font-size: 0.95rem; }
+    .mission-box { padding: 32px 20px; }
+    .stats-bar { gap: 20px; }
+    .stat-divider { display: none; }
+    .team-img-wrapper { height: 200px; }
+    .team-bio { min-height: auto; }
+    .join-box h2 { font-size: 1.6rem; }
+    .btn-primary, .btn-outline { padding: 11px 20px; margin: 6px; }
+    .values-grid { grid-template-columns: 1fr; } /* Stack value cards */
+}
+
+@media (max-width: 480px) {
+    .hero-overlay h1 { font-size: 1.7rem; }
+    
+    /* Fixed the cut-off code here! Stack team members in one column on small phones */
+    .team-grid { 
+        grid-template-columns: 1fr; 
     }
     
-    .about-hero-banner h1 {
-        font-size: 2.2rem;
-    }
-    
-    .mission-box {
-        padding: 35px 20px;
-        margin-top: -40px;
+    /* Make buttons stretch full width on tiny screens for easier tapping */
+    .btn-primary, .btn-outline {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
     }
 }

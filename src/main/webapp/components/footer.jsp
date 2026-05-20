@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
-<%-- 
+<%--
   ==============================================================================
   Component: Global Footer (footer.jsp)
   Purpose: Serves as the universal footer across the entire application.

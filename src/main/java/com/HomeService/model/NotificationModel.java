@@ -2,18 +2,31 @@ package com.HomeService.model;
 
 import java.sql.Timestamp;
 
-public class NotificationModel {
-    private int id;
-    private int userId;
-    private String message;
-    private String type; // 'SUCCESS', 'INFO', 'WARNING'
-    private boolean isRead;
-    private Timestamp createdAt;
+/* ==============================================================================
+   Model Component: Notification Data Model Entity (NotificationModel.java)
 
-    // Default Constructor
+   Description:
+   Acts as a standard Plain Old Java Object (POJO) representing a relational
+   notification record from the database. It handles the structural data variables
+   for system alerts, booking updates, and warning messages.
+   ============================================================================== */
+public class NotificationModel {
+
+    private int id;                 /* Unique primary key identifier for the notification */
+    private int userId;             /* Foreign key connecting the alert to a specific registered user record */
+    private String message;         /* Text body explaining the account or booking event update */
+    private String type;            /* Categorized flags: 'SUCCESS', 'INFO', or 'WARNING' for style processing */
+    private boolean isRead;         /* Conditional state flag tracker for unseen vs read system alerts */
+    private Timestamp createdAt;    /* Chronological database timestamp logging when the alert occurred */
+
+    /* ==============================================================================
+       Constructors Layer
+       ============================================================================== */
+
+    /* Default no-argument constructor required for JavaBean serialization guidelines */
     public NotificationModel() {}
 
-    // Parameterized Constructor
+    /* Parameterized constructor utilized by the NotificationDAO to map database tables into data collections */
     public NotificationModel(int id, int userId, String message, String type, boolean isRead, Timestamp createdAt) {
         this.id = id;
         this.userId = userId;
@@ -23,7 +36,12 @@ public class NotificationModel {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
+    /* ==============================================================================
+       Encapsulation Layer (Getters & Setters)
+       Allows JSTL tags like <c:forEach> and EL loops (${notif.message}) to securely read
+       the data values out of individual row entities.
+       ============================================================================== */
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

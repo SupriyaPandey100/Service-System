@@ -23,7 +23,7 @@ public class RegisterService {
 
         // 3. Assign defaults
         if (user.getRole() == null) {
-            user.setRole("USER"); 
+            user.setRole("USER");
         }
         user.setStatus("ACTIVE"); // Set to PENDING if admin approval is needed
 

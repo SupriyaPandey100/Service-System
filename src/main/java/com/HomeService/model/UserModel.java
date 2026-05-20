@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UserModel implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private int userId; // Aligned with the database column name 'user_id'
     private String fullName;
     private String email;
@@ -47,4 +47,15 @@ public class UserModel implements Serializable {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    
+ // Add these variables near the top of UserModel.java with your other variables
+    private String username;
+    private String profileImage;
+
+    // Add these Getters and Setters at the bottom of UserModel.java
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public String getProfileImage() { return profileImage; }
+    public void setProfileImage(String profileImage) { this.profileImage = profileImage; }
 }

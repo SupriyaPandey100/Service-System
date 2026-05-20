@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
+<% /* ==============================================================================
+  System View Component: Authenticated User Dashboard Layout (userdashboard.jsp)
+  ==============================================================================
+*/ %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,18 +18,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/userdashboard.css?v=5.0">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/userdashboard.css?v=6.0">
 </head>
-<body>
+<body style="background-color: #f9fafb; margin: 0; display: flex; flex-direction: column; min-height: 100vh;">
 
-    <%@ include file="header.jsp" %>
+    <jsp:include page="/components/header.jsp" />
 
-    <main class="dashboard container">
+    <main class="dashboard container" style="flex: 1; padding: 20px 40px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box;">
         
         <section class="welcome-banner">
             <div class="welcome-text">
                 <c:set var="activeUser" value="${not empty sessionScope.loggedUser ? sessionScope.loggedUser : sessionScope.userSession}" />
-                <h1>Welcome back, <c:out value="${activeUser.fullName}" default="Guest"/>! <i class="fas fa-hand-sparkles" style="color: #FFD700;"></i></h1>
+                <h1>Welcome back, <c:out value="${activeUser.fullName}" default="User"/> </h1>
                 <p>Find and manage your home services easily.</p>
             </div>
             <a href="${pageContext.request.contextPath}/services" class="btn btn-primary">Browse Services</a>
@@ -63,7 +68,7 @@
                 <div class="stat-info">
                     <span class="stat-label">Notifications</span>
                     <div class="stat-value"><c:out value="${notificationCount}" default="0"/></div>
-                    <a href="#" class="view-link">View all &rarr;</a>
+                    <a href="#notificationModal" class="view-link">View all &rarr;</a>
                 </div>
             </div>
         </section>
@@ -110,7 +115,66 @@
         </div>
     </main>
 
-    <%@ include file="footer.jsp" %>
+    <div id="notificationModal" class="system-modal-overlay">
+        <div class="system-modal-container">
+            
+            <div class="system-modal-header">
+                <div class="modal-header-text">
+                    <h2> Notifications</h2>
+                    <p>Track your  actions </p>
+                </div>
+                <a href="#close" class="modal-close-anchor">&times;</a>
+            </div>
+            
+            <div class="system-modal-body">
+                <c:choose>
+                    <c:when test="${empty notificationsList}">
+                        <div style="text-align: center; padding: 60px 20px; color: var(--text-sub);">
+                            <i class="fas fa-bell-slash" style="font-size: 44px; margin-bottom: 16px; color: var(--primary-color); opacity: 0.5;"></i>
+                            <h4 style="margin: 0 0 4px 0; color: var(--text-main); font-size: 16px; font-weight: 700;">All caught up!</h4>
+                            <p style="margin: 0; font-size: 13px;">Check your updates</p>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="notif" items="${notificationsList}">
+                            <div class="modal-notification-item">
+                                <div class="modal-icon-wrapper">
+                                    <c:choose>
+                                        <c:when test="${notif.type == 'SUCCESS'}"><i class="fas fa-check-circle" style="color: #27AE60;"></i></c:when>
+                                        <c:when test="${notif.type == 'WARNING'}"><i class="fas fa-exclamation-triangle" style="color: #F2994A;"></i></c:when>
+                                        <c:otherwise><i class="fas fa-info-circle" style="color: var(--primary-color);"></i></c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div class="modal-content-wrapper">
+                                    <p><c:out value="${notif.message}"/></p>
+                                    <span class="timestamp-stamp"><i class="far fa-clock"></i> <c:out value="${notif.createdAt}"/></span>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            
+            <div class="system-modal-footer">
+                <c:choose>
+                    <c:when test="${not empty notificationsList}">
+                        <a href="${pageContext.request.contextPath}/mark-notifications-read" class="modal-btn-action">
+                            <i class="fas fa-check-double"></i> Mark all as read
+                        </a>
+                        <a href="#close" class="modal-btn-cancel">Close</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#close" class="modal-btn-action" style="width: 100%; text-align: center; background-color: var(--primary-color) !important;">
+                            Close
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+            
+        </div>
+    </div> 
+
+    <jsp:include page="/components/footer.jsp" />
     
 </body>
 </html>

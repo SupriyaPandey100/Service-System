@@ -16,8 +16,8 @@
             --primary-purple: #5D558A; 
             --light-purple: #9A88BC; 
             --action-blue: #155DFC; 
-            --bg-main: #ffffff; /* Changed from beige to pure white */
-            --gray-light: #F3F4F6; /* New light gray for icon backgrounds */
+            --bg-main: #ffffff; 
+            --gray-light: #F3F4F6; 
             --text-dark: #111827;
             --text-gray: #4B5563;
         }
@@ -25,8 +25,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--bg-main); color: var(--text-dark); line-height: 1.6; }
 
-        /* NAVBAR */
-        .navbar { background-color: var(--primary-purple); padding: 1rem 8%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        /* NAVBAR - Removed sticky position to allow scrolling */
+        .navbar { background-color: var(--primary-purple); padding: 1rem 8%; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1000; }
         .logo { color: white; font-weight: 800; font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; gap: 8px; }
         .nav-links { list-style: none; display: flex; gap: 2rem; }
         .nav-links a { text-decoration: none; color: rgba(255,255,255,0.8); font-size: 0.95rem; font-weight: 500; }
@@ -34,12 +34,14 @@
         .btn-reg { background: var(--light-purple); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: background 0.3s; }
         .btn-reg:hover { background: #8271a3; }
 
-        /* HERO SECTION - CLEAR IMAGE OVERLAY */
+        /* HERO SECTION - Scroll fixes applied */
         .hero { 
-            /* Changed to a dark neutral gradient so the tools image shows clearly */
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                         url('https://images.unsplash.com/photo-1581578731548-c64695cc6958?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+            background-size: cover; 
+            background-position: center;
+            background-attachment: scroll !important; /* Fix for scrolling */
+            position: relative !important;
             height: 550px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
             padding: 0 10%;
         }
@@ -47,11 +49,9 @@
         .hero p { font-size: 1.15rem; margin-bottom: 35px; opacity: 0.95; max-width: 700px; }
         .hero-btns { display: flex; gap: 15px; }
         
-        /* HERO BUTTONS */
         .btn-beige { background: var(--action-blue); color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: background 0.3s;}
         .btn-beige:hover { background: #0d4bc7; }
         
-        /* Changed from outline to solid white */
         .btn-outline { background: white; color: var(--primary-purple); padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.3s; border: none; }
         .btn-outline:hover { background: #f0f0f0; }
 
@@ -61,11 +61,9 @@
         .section-subtitle { color: var(--text-gray); margin-bottom: 50px; font-weight: 500; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
-        /* SERVICE CARDS */
         .s-card { background: white; padding: 40px 30px; border-radius: 12px; text-align: left; transition: 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
         .s-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
         
-        /* Changed icon background to light gray */
         .s-card i { background: var(--gray-light); color: var(--text-dark); padding: 16px; border-radius: 10px; margin-bottom: 25px; display: inline-block; font-size: 1.3rem; }
         .s-card h3 { margin-bottom: 12px; font-weight: 800; color: var(--text-dark); }
         .s-card p { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 25px; line-height: 1.5; }
@@ -73,7 +71,7 @@
         .learn-more { color: var(--text-dark); text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: color 0.3s; display: flex; align-items: center; gap: 5px; }
         .learn-more:hover { color: var(--action-blue); }
 
-        /* WHY CHOOSE US - Adjusted to match clean theme */
+        /* WHY CHOOSE US */
         .why-us { background-color: var(--bg-main); border-top: 1px solid #f0f0f0; }
         .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px; margin-top: 40px; }
         .why-item i { font-size: 2.2rem; color: var(--text-dark); background: var(--gray-light); padding: 25px; border-radius: 50%; margin-bottom: 20px; display: inline-block; }
@@ -109,6 +107,7 @@
         <li><a href="${pageContext.request.contextPath}/index">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/services">Services</a></li>
         <li><a href="${pageContext.request.contextPath}/about">About</a></li>
+        <li><a href="${pageContext.request.contextPath}/contact us">Contact Us</a></li>
     </ul>
     
     <div class="auth-btns">
