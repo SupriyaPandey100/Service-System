@@ -2,9 +2,9 @@ package com.HomeService.controller;
 
 import java.io.IOException;
 
-import com.HomeService.dao.UserDAO;
 import com.HomeService.dao.BookingDAO;
 import com.HomeService.dao.ServiceDAO;
+import com.HomeService.dao.UserDAO;
 import com.HomeService.model.UserModel;
 
 import jakarta.servlet.ServletException;
