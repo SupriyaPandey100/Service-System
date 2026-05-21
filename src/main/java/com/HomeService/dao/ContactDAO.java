@@ -2,17 +2,12 @@ package com.HomeService.dao;
 
 
 
-import com.HomeService.model.ContactMessage;
-
-import com.HomeService.utils.DBconfig;
-
-
-
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
-
 import java.sql.SQLException;
+
+import com.HomeService.model.ContactMessage;
+import com.HomeService.utils.DBconfig;
 
 
 

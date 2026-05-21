@@ -24,8 +24,8 @@
                     <c:when test="${not empty sessionScope.loggedUser and sessionScope.userRole == 'ADMIN'}">
                         <li><a href="${pageContext.request.contextPath}/admindashboard">Dashboard</a></li>
                         <li><a href="${pageContext.request.contextPath}/manageuser">Manage Users</a></li>
-                        li><a href="${pageContext.request.contextPath}/manageBooking">Technicians</a></li>
-                        li><a href="${pageContext.request.contextPath}/reports"></a></li>
+                        <li><a href="${pageContext.request.contextPath}/manageBooking">Manage Bookings</a></li>
+                        <li><a href="${pageContext.request.contextPath}/reports">Reports</a></li>
                         <li><a href="${pageContext.request.contextPath}/managetechnician">Technicians</a></li>
                     </c:when>
                     
@@ -60,12 +60,12 @@
                     
                     <%-- B. Notification System --%>
                     <div class="notification-wrapper">
-                        <div class="notification-bell">
+                        <a href="${pageContext.request.contextPath}/notifications" class="notification-bell" style="text-decoration: none; color: inherit;">
                             <i class="fas fa-bell"></i>
-                            <c:if test="${not empty notificationCount and notificationCount > 0}">
-                                <span class="notification-count"><c:out value="${notificationCount}"/></span>
+                            <c:if test="${not empty sessionScope.notificationCount and sessionScope.notificationCount > 0}">
+                                <span class="notification-count"><c:out value="${sessionScope.notificationCount}"/></span>
                             </c:if>
-                        </div>
+                        </a>
                     </div>
                     
                     <%-- C. User Profile Dropdown --%>
@@ -77,9 +77,13 @@
                         </span>
                         
                         <div class="dropdown-menu">
+                        
                             <a href="${pageContext.request.contextPath}/profile"><i class="fas fa-user-cog"></i> My Profile</a>
                             <a href="${pageContext.request.contextPath}/logout" class="text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        
                         </div>
+                        
+                        
                     </div>
                 </c:when>
                 

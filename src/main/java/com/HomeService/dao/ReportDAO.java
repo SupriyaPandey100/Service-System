@@ -28,21 +28,18 @@ public class ReportDAO {
     }
 
     public int getTotalRevenue() throws Exception {
-        String sql = "SELECT SUM(price) FROM bookings WHERE status = 'COMPLETED'";
+        String sql = "SELECT COALESCE(SUM(total_amount), 0) FROM bookings WHERE UPPER(status) = 'COMPLETED'";
 
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
              ResultSet rs = pst.executeQuery()) {
 
-            if (rs.next()) {
-                return rs.getInt(1) != 0 ? rs.getInt(1) : 0;
-            }
+            return rs.next() ? rs.getInt(1) : 0;
         }
-        return 0;
     }
 
     public int getTotalCustomers() throws Exception {
-        String sql = "SELECT COUNT(*) FROM users WHERE role = 'USER'";
+        String sql = "SELECT COUNT(*) FROM users WHERE UPPER(role) = 'USER'";
 
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
@@ -58,7 +55,7 @@ public class ReportDAO {
     public Map<String, Integer> getBookingStatusCounts() throws Exception {
         Map<String, Integer> statusCounts = new HashMap<>();
 
-        String sql = "SELECT status, COUNT(*) as count FROM bookings GROUP BY status";
+        String sql = "SELECT UPPER(status) AS status, COUNT(*) as count FROM bookings GROUP BY UPPER(status)";
 
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);
@@ -76,7 +73,7 @@ public class ReportDAO {
     public List<TechnicianModel> getTopTechnicians() throws Exception {
         List<TechnicianModel> topTechnicians = new ArrayList<>();
 
-        String sql = "SELECT * FROM technicians WHERE status = 'active' ORDER BY completed_jobs DESC LIMIT 5";
+        String sql = "SELECT * FROM technicians WHERE UPPER(status) = 'ACTIVE' ORDER BY completed_jobs DESC LIMIT 5";
 
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement pst = conn.prepareStatement(sql);

@@ -16,7 +16,7 @@ import com.HomeService.utils.DBconfig;
 public class BookingDAO {
 
     // ========================================================================
-    // 👤 USER SIDE METHODS (Customer Portal)
+    //  USER SIDE METHODS (Customer Portal)
     // ========================================================================
 
     public List<BookingModel> getUserBookings(int userId, String statusFilter) {
@@ -129,7 +129,7 @@ public class BookingDAO {
     }
 
     // ========================================================================
-    // 🛡️ ADMIN SIDE METHODS (Management Dashboard)
+    //  ADMIN SIDE METHODS (Management Dashboard)
     // ========================================================================
 
     public int getTotalBookingsCount() throws Exception {
@@ -141,7 +141,6 @@ public class BookingDAO {
     }
 
     public List<BookingModel> getAllBookings() throws Exception {
-        // FIX: Changed ORDER BY to 'booking_date' to match your database image!
         String sql = "SELECT b.*, u.full_name as customer_name, u.phone as customer_phone, s.service_name, t.full_name as technician_name " +
                      "FROM bookings b " +
                      "LEFT JOIN users u ON b.user_id = u.user_id " +
@@ -153,7 +152,6 @@ public class BookingDAO {
     }
 
     public List<BookingModel> getBookingsByStatus(String status) throws Exception {
-        // FIX: Changed ORDER BY to 'booking_date' to match your database image!
         String sql = "SELECT b.*, u.full_name as customer_name, u.phone as customer_phone, s.service_name, t.full_name as technician_name " +
                      "FROM bookings b " +
                      "LEFT JOIN users u ON b.user_id = u.user_id " +
@@ -187,7 +185,7 @@ public class BookingDAO {
     }
 
     // ========================================================================
-    // 🛠️ HELPER UTILITY METHODS
+    //  HELPER UTILITY METHODS
     // ========================================================================
 
     private int executeCountQuery(String sql) throws Exception {

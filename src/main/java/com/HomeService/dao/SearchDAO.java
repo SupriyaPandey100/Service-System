@@ -9,9 +9,14 @@ import java.util.List;
 
 import com.HomeService.model.BookingModel;
 import com.HomeService.model.NotificationModel;
-import com.HomeService.utils.DBconfig; // <--- THE MISSING IMPORT FIXED HERE!
+import com.HomeService.model.UserModel; // <--- ADDED REQUIRED IMPORT
+import com.HomeService.utils.DBconfig; 
 
 public class SearchDAO {
+
+    /* ==========================================================
+       USER METHODS: Searches isolated to a specific User ID
+       ========================================================== */
 
     public List<NotificationModel> searchNotifications(int userId, String query) {
         List<NotificationModel> results = new ArrayList<>();
@@ -47,6 +52,75 @@ public class SearchDAO {
             stmt.setInt(1, userId);
             stmt.setString(2, "%" + query + "%");
             stmt.setString(3, "%" + query + "%");
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                BookingModel b = new BookingModel();
+
+                b.setId(rs.getInt("booking_id"));
+                b.setUserId(rs.getInt("user_id"));
+                b.setServiceName(rs.getString("service_name"));
+                b.setServiceDate(rs.getDate("preferred_date"));
+                b.setServiceTime(rs.getString("preferred_time"));
+                b.setStatus(rs.getString("status"));
+                b.setPrice(rs.getDouble("total_amount"));
+                b.setCreatedAt(rs.getTimestamp("booking_date"));
+
+                results.add(b);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    /* ==========================================================
+       ADMIN METHODS: Global searches across the entire system
+       ========================================================== */
+
+    public List<UserModel> searchAllUsers(String query) {
+        List<UserModel> results = new ArrayList<>();
+        // Adjust column names (fullName, email, username) if they differ in your database
+        String sql = "SELECT * FROM users WHERE fullName LIKE ? OR email LIKE ? OR username LIKE ?";
+
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            String searchParam = "%" + query + "%";
+            stmt.setString(1, searchParam);
+            stmt.setString(2, searchParam);
+            stmt.setString(3, searchParam);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                UserModel user = new UserModel();
+                
+                // Note: Ensure these setter names match your UserModel exactly
+                user.setUserId(rs.getInt("id")); 
+                user.setFullName(rs.getString("fullName"));
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setRole(rs.getString("role"));
+                
+                results.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    public List<BookingModel> searchAllBookings(String query) {
+        List<BookingModel> results = new ArrayList<>();
+        // No user_id filter here so the admin sees everyone's bookings
+        String sql = "SELECT * FROM bookings WHERE service_name LIKE ? OR status LIKE ? ORDER BY booking_date DESC";
+
+        try (Connection conn = DBconfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            String searchParam = "%" + query + "%";
+            stmt.setString(1, searchParam);
+            stmt.setString(2, searchParam);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

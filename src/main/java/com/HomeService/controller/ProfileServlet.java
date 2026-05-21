@@ -1,40 +1,23 @@
 package com.HomeService.controller;
 
 import java.io.File;
-
-import java.nio.file.Paths;
-
-import jakarta.servlet.http.Part;
-
 import java.io.IOException;
-
+import java.nio.file.Paths;
 import java.sql.SQLException;
 
-
-
 import com.HomeService.dao.UserDAO;
-
 import com.HomeService.model.UserModel;
-
 import com.HomeService.utils.CookieUtils;
-
 import com.HomeService.utils.SessionUtils;
 
-
-
 import jakarta.servlet.ServletException;
-
-import jakarta.servlet.annotation.WebServlet;
-
 import jakarta.servlet.annotation.MultipartConfig;
-
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
-
 import jakarta.servlet.http.HttpServletRequest;
-
 import jakarta.servlet.http.HttpServletResponse;
-
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 
 

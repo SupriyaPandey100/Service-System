@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("userSession", user);
 
-                // ADD THIS LINE to match UserDashboardServlet
+                /* UserDashboardServlet*/
                 session.setAttribute("loggedUser", user);
 
                 // Route based on role

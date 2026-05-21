@@ -119,7 +119,6 @@
 
     </main>
 
-    <%-- Modular UI Injection: Renders the global footer component --%>
     <jsp:include page="/components/footer.jsp" />
 
 </body>

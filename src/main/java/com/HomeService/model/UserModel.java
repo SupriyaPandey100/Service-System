@@ -47,7 +47,7 @@ public class UserModel implements Serializable {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-    
+
  // Add these variables near the top of UserModel.java with your other variables
     private String username;
     private String profileImage;

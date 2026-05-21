@@ -196,7 +196,7 @@
 
             <div class="search-container">
 
-                <form method="get" action="${pageContext.request.contextPath}/search">
+                <form method="get" action="${pageContext.request.contextPath}/admindashboard">
 
                     <div class="search-bar-small">
 
@@ -316,11 +316,11 @@
 
                 <a href="${pageContext.request.contextPath}/manageBooking" class="action-btn">
 
-                    <i class="fa-solid fa-calendar"></i>
+    <i class="fa-solid fa-calendar"></i>
 
-                    <span>Manage Bookings</span>
+    <span>Manage Bookings</span>
 
-                </a>
+</a>
 
                 <a href="${pageContext.request.contextPath}/manageuser" class="action-btn">
 

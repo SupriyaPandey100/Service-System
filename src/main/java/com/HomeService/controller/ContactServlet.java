@@ -2,31 +2,18 @@ package com.HomeService.controller;
 
 
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import com.HomeService.dao.ContactDAO;
-
 import com.HomeService.model.ContactMessage;
-
 import com.HomeService.utils.CookieUtils;
 
-
-
-
-
 import jakarta.servlet.ServletException;
-
 import jakarta.servlet.annotation.WebServlet;
-
 import jakarta.servlet.http.HttpServlet;
-
 import jakarta.servlet.http.HttpServletRequest;
-
 import jakarta.servlet.http.HttpServletResponse;
-
-
-
-import java.io.IOException;
-
-import java.sql.SQLException;
 
 
 
@@ -34,7 +21,7 @@ import java.sql.SQLException;
 
  * ContactServlet handles Contact Us page requests.
 
- * 
+ *
 
  * doGet  -> Loads contact page
 

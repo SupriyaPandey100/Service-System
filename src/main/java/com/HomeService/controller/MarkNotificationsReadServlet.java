@@ -51,6 +51,9 @@ public class MarkNotificationsReadServlet extends HttpServlet {
 
             /* Fixed Alignment: Updated call to cleanly use user.getUserId() to maintain database synchronization */
             notifDao.markAllAsRead(user.getUserId());
+            
+            // ADD THIS LINE: Reset the session badge count so the red number disappears from the header!
+            session.setAttribute("notificationCount", 0);
 
             /* SUCCESS ROUTE: Return cleanly back into the populated user dashboard grid mapping */
             response.sendRedirect(request.getContextPath() + "/dashboard");

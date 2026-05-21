@@ -62,7 +62,7 @@ public class UserDashboardServlet extends HttpServlet {
             }
 
             int count = notifications.size();
-            request.setAttribute("notificationCount", count);
+            session.setAttribute("notificationCount", count); // Saved globally for this user!
             request.setAttribute("notificationsList", notifications);
 
 

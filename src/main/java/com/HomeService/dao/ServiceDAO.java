@@ -20,7 +20,7 @@ import com.HomeService.utils.DBconfig;
 public class ServiceDAO {
 
     // ========================================================================
-    // 🔍 DATA RETRIEVAL METHODS (Used by Both Users and Admins)
+    //  DATA RETRIEVAL METHODS (Used by Both Users and Admins)
     // ========================================================================
 
     /**
@@ -139,7 +139,7 @@ public class ServiceDAO {
     }
 
     // ========================================================================
-    // ⚙️ DATA MUTATION METHODS (Strictly Admin Side Operations)
+    //  DATA MUTATION METHODS (Strictly Admin Side Operations)
     // ========================================================================
 
     /**
@@ -222,7 +222,7 @@ public class ServiceDAO {
     }
 
     // ========================================================================
-    // 🛠️ HELPER UTILITY METHODS (DRY Principle)
+    //  HELPER UTILITY METHODS (DRY Principle)
     // ========================================================================
 
     /**

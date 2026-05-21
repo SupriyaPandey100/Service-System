@@ -29,7 +29,7 @@
         <section class="welcome-banner">
             <div class="welcome-text">
                 <c:set var="activeUser" value="${not empty sessionScope.loggedUser ? sessionScope.loggedUser : sessionScope.userSession}" />
-                <h1>Welcome back, <c:out value="${activeUser.fullName}" default="User"/> </h1>
+                <h1>Welcome back, <c:out value="${activeUser.fullName}" default="User"/></h1>
                 <p>Find and manage your home services easily.</p>
             </div>
             <a href="${pageContext.request.contextPath}/services" class="btn btn-primary">Browse Services</a>
